@@ -1,24 +1,26 @@
-# README
+# Toilet Finder Project
+This repository is a source code for our Cloud Computing Assignment 2.
+Made by Nabila Herzegovina and Nancy Do.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## About the app
+Help people find public toilet nearby through our app. 
 
-Things you may want to cover:
+### Run the app locally
+On repository directory, enter this command on terminal 
+``` Rails Server   ```
+Then open the web app on this address :
+[localhost:3000](http://localhost:3000)
 
-* Ruby version
+## Deploy to Google Cloud
+Please set up the Google Cloud for this project on your local machine first.
+```gcloud init```
 
-* System dependencies
+### Before Deploy
+Make sure you precompile the assets first
+```RAILS_ENV=test bundle exec rails assets:precompile```
 
-* Configuration
+### Deploy command
+```gcloud app init```
 
-* Database creation
 
-* Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
