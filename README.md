@@ -6,10 +6,12 @@ Made by Nabila Herzegovina and Nancy Do.
 ## About the app
 Help people find public toilet nearby through our app. 
 
-### Run the app locally
+## Run the app locally
 On repository directory, enter this command on terminal 
 
-``` Rails Server   ```
+```
+Rails Server
+```
 
 Then open the web app on this address :
 
@@ -18,15 +20,21 @@ Then open the web app on this address :
 ## Deploy to Google Cloud
 Please set up the Google Cloud for this project on your local machine first.
 
-```gcloud init```
+```
+gcloud init
+```
 
 ### Before Deploy
 Make sure you precompile the assets first
 
-```RAILS_ENV=test bundle exec rails assets:precompile```
+```
+RAILS_ENV=test bundle exec rails assets:precompile
+```
 
 ### Deploy command
-```gcloud app init```
+```
+gcloud app init
+```
 
 
 
