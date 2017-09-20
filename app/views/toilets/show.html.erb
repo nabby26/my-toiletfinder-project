@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @toilet.title %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @toilet.location %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @toilet.description %>
+</p>
+
+<%= link_to 'Edit', edit_toilet_path(@toilet) %> |
+<%= link_to 'Back', toilets_path %>
