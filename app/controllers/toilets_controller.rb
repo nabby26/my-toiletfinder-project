@@ -4,12 +4,13 @@ class ToiletsController < ApplicationController
   # GET /toilets
   # GET /toilets.json
   def index
-    @toilets = Toilet.all
+    @toilets , @cursor = Toilet.query limit: 10, cursor: params[:cursor], cursor: params[:cursor]
   end
 
   # GET /toilets/1
   # GET /toilets/1.json
   def show
+    @toilet = Toilet.find params[:id]
   end
 
   # GET /toilets/new
