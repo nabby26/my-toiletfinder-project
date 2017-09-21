@@ -41,5 +41,17 @@ gcloud app init
 gcloud auth application-default login
 ```
 
+### Do not forget to Migrate the database for Dev and Prod
+For Production (Google Cloud)
+```
+RAILS_ENV=production rake db:migrate
+```
+
+For Local Machine
+
+```
+rails db:migrate
+```
+
 
 
