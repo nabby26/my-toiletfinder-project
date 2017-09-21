@@ -5,10 +5,8 @@ class Toilet < ApplicationRecord
     # Return a Google::Cloud::Datastore::Dataset for the configured dataset.
     # The dataset is used to create, read, update, and delete entity objects.
     def self.dataset
-        gcloud = 
         @dataset ||= Google::Cloud::Datastore.new(
             project: Rails.application.config.database_configuration[Rails.env]["dataset_id"]
-            # project = "my-toiletfinder-project"
         )
     end
 
