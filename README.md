@@ -21,7 +21,7 @@ Then open the web app on this address :
 Please set up the Google Cloud for this project on your local machine first.
 
 ```
-gcloud init
+gcloud deploy
 ```
 
 ### Before Deploy
