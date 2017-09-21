@@ -21,7 +21,7 @@ Then open the web app on this address :
 Please set up the Google Cloud for this project on your local machine first.
 
 ```
-gcloud deploy
+gcloud init
 ```
 
 ### Before Deploy
@@ -33,7 +33,7 @@ RAILS_ENV=test bundle exec rails assets:precompile
 
 ### Deploy command
 ```
-gcloud app init
+gcloud app deploy
 ```
 
 ### Authenticate your Google Cloud account
