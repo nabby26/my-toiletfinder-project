@@ -36,5 +36,10 @@ RAILS_ENV=test bundle exec rails assets:precompile
 gcloud app init
 ```
 
+### Authenticate your Google Cloud account
+```
+gcloud auth application-default login
+```
+
 
 
