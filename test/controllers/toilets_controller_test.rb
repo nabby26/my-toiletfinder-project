@@ -17,7 +17,7 @@ class ToiletsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create toilet" do
     assert_difference('Toilet.count') do
-      post toilets_url, params: { toilet: { description: @toilet.description, location: @toilet.location, title: @toilet.title } }
+      post toilets_url, params: { toilet: { description: @toilet.description, disabled_opt: @toilet.disabled_opt, gender_neutral: @toilet.gender_neutral, location: @toilet.location, parentsRoom: @toilet.parentsRoom, title: @toilet.title } }
     end
 
     assert_redirected_to toilet_url(Toilet.last)
@@ -34,7 +34,7 @@ class ToiletsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update toilet" do
-    patch toilet_url(@toilet), params: { toilet: { description: @toilet.description, location: @toilet.location, title: @toilet.title } }
+    patch toilet_url(@toilet), params: { toilet: { description: @toilet.description, disabled_opt: @toilet.disabled_opt, gender_neutral: @toilet.gender_neutral, location: @toilet.location, parentsRoom: @toilet.parentsRoom, title: @toilet.title } }
     assert_redirected_to toilet_url(@toilet)
   end
 

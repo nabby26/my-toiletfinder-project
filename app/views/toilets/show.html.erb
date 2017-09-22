@@ -15,5 +15,20 @@
   <%= @toilet.description %>
 </p>
 
+<p>
+  <strong>Parentsroom:</strong>
+  <%= @toilet.parentsRoom %>
+</p>
+
+<p>
+  <strong>Gender neutral:</strong>
+  <%= @toilet.gender_neutral %>
+</p>
+
+<p>
+  <strong>Disabled opt:</strong>
+  <%= @toilet.disabled_opt %>
+</p>
+
 <%= link_to 'Edit', edit_toilet_path(@toilet) %> |
 <%= link_to 'Back', toilets_path %>

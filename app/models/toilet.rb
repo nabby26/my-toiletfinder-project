@@ -1,6 +1,6 @@
 require "google/cloud/datastore"
 class Toilet < ApplicationRecord
-    attr_accessor :id, :title, :location, :description
+    attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt
 
     # Return a Google::Cloud::Datastore::Dataset for the configured dataset.
     # The dataset is used to create, read, update, and delete entity objects.
@@ -79,6 +79,9 @@ class Toilet < ApplicationRecord
         entity["title"]        = title
         entity["location"]       = location
         entity["description"]       = description
+        entity["parentsRoom"]       = parentsRoom
+        entity["gender_neutral"]       = gender_neutral
+        entity["disabled_opt"]       = disabled_opt
         entity
     end
     # [END to_entity]
