@@ -33,7 +33,24 @@ RAILS_ENV=test bundle exec rails assets:precompile
 
 ### Deploy command
 ```
-gcloud app init
+gcloud app deploy
+```
+
+### Authenticate your Google Cloud account
+```
+gcloud auth application-default login
+```
+
+### Do not forget to Migrate the database for Dev and Prod
+For Production (Google Cloud)
+```
+RAILS_ENV=production rake db:migrate
+```
+
+For Local Machine
+
+```
+rails db:migrate
 ```
 
 
