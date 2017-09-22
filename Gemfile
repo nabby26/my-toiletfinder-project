@@ -30,11 +30,12 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+gem 'rake'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 # Use Google cloud
+gem 'google-api-client', '~> 0.9.1'
 gem 'google-cloud-datastore', require: 'google/cloud/datastore'
 
 group :development, :test do
