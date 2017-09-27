@@ -70,6 +70,6 @@ class ToiletsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def toilet_params
-      params.require(:toilet).permit(:title, :location, :description)
+      params.require(:toilet).permit(:title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt)
     end
 end

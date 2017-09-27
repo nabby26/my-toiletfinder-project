@@ -10,14 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920115300) do
+ActiveRecord::Schema.define(version: 20170922004104) do
 
   create_table "toilets", force: :cascade do |t|
     t.string   "title"
     t.string   "location"
     t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "parentsRoom",    default: false
+    t.boolean  "gender_neutral", default: false
+    t.boolean  "disabled_opt",   default: false
   end
 
 end
