@@ -79,10 +79,11 @@ class Toilet < ApplicationRecord
         entity["title"]        = title
         entity["location"]       = location
         entity["description"]       = description
-        entity["parentsRoom"]       = parentsRoom
-        entity["gender_neutral"]       = gender_neutral
-        entity["disabled_opt"]       = disabled_opt
+        entity["parentsRoom"]       = parentsRoom == "1" ? true : false
+        entity["gender_neutral"]       = gender_neutral == "1" ? true : false
+        entity["disabled_opt"]       = disabled_opt == "1" ? true : false
         entity
     end
     # [END to_entity]
+
 end

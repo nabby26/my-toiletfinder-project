@@ -16,11 +16,11 @@ ActiveRecord::Schema.define(version: 20170922004104) do
     t.string   "title"
     t.string   "location"
     t.string   "description"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.boolean  "parentsRoom"
-    t.boolean  "gender_neutral"
-    t.boolean  "disabled_opt"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "parentsRoom",    default: false
+    t.boolean  "gender_neutral", default: false
+    t.boolean  "disabled_opt",   default: false
   end
 
 end
