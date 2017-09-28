@@ -1,5 +1,6 @@
 class ToiletsController < ApplicationController
   before_action :set_toilet, only: [:show, :edit, :update, :destroy]
+  #before_action :admin_user, only: [:index, :show, :edit, :update, :destroy]
 
   # GET /toilets
   # GET /toilets.json
@@ -72,4 +73,9 @@ class ToiletsController < ApplicationController
     def toilet_params
       params.require(:toilet).permit(:title, :location, :description)
     end
+
+    #Confirms admin user
+    # def admin_user
+    #   redirect_to(root_url) unless current_user.admin?
+    # end
 end
