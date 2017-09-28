@@ -1,6 +1,7 @@
 require "google/cloud/datastore"
 class Toilet < ApplicationRecord
     attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt
+    after_create :upload_image, if: :toilet_photo
 
     # Return a Google::Cloud::Datastore::Dataset for the configured dataset.
     # The dataset is used to create, read, update, and delete entity objects.
@@ -52,9 +53,13 @@ class Toilet < ApplicationRecord
     end
     # [END find]
 
-    # Add Active Model support.
-    # Provides constructor that takes a Hash of attribute values.
-    include ActiveModel::Model
+    # [START validations]
+    # Add Active Model validation support to Book class.
+    include ActiveModel::Validations
+  
+    validates :title, presence: true
+    validates :location, presence: true
+    # [END validations]
 
     # [START save]
     # Save the Toilet to Datastore.
@@ -85,5 +90,39 @@ class Toilet < ApplicationRecord
         entity
     end
     # [END to_entity]
+
+    # [START update]
+    # Set attribute values from provided Hash and save to Datastore.
+    def update attributes
+        attributes.each do |name, value|
+            send "#{name}=", value if respond_to? "#{name}="
+        end
+        save
+    end
+    # [END update]
+
+   # [START destroy]
+    def destroy
+     Toilet.dataset.delete Google::Cloud::Datastore::Key.new "Toilet", id
+    end
+  # [END destroy]
+
+  def upload_image
+    image = StorageBucket.files.new(
+      key: "toilet_photo/#{id}/#{toilet_photo.original_filename}",
+      body: toilet_photo.read,
+      public: true
+    )
+  
+    image.save
+  
+    update_columns image_url: image.public_url
+  end
+
+##################
+
+  def persisted?
+    id.present?
+  end   
 
 end

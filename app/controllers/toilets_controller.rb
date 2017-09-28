@@ -20,6 +20,7 @@ class ToiletsController < ApplicationController
 
   # GET /toilets/1/edit
   def edit
+    @toilet = Toilet.find params[:id]
   end
 
   # POST /toilets

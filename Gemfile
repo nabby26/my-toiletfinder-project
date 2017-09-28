@@ -34,6 +34,9 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Use Fog
+gem 'fog-google'
+
 # Use Google cloud
 gem 'google-cloud-datastore', require: 'google/cloud/datastore'
 
