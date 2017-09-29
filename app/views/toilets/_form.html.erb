@@ -1,32 +1,14 @@
-<%= form_for(toilet) do |f| %>
-  <% if toilet.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(toilet.errors.count, "error") %> prohibited this toilet from being saved:</h2>
+<%= form_for(@toilet) do |f| %>
+    <%= render 'shared/toilet_error_messages', object: @toilet %>
 
-      <ul>
-      <% toilet.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
     <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
+    <%= f.text_field :title, class: 'form-control' %>
 
-  <div class="field">
     <%= f.label :location %>
-    <%= f.text_field :location %>
-  </div>
+    <%= f.text_field :location, class: 'form-control' %>
 
-  <div class="field">
     <%= f.label :description %>
-    <%= f.text_field :description %>
-  </div>
+    <%= f.text_field :description, class: 'form-control' %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= f.submit "Create toilet", class: "btn btn-primary" %>
 <% end %>

@@ -1,5 +1,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
+
+/* universal */
 
 body {
   background-color: #fff;
@@ -8,6 +11,49 @@ body {
   font-size: 13px;
   line-height: 18px;
   margin: 33px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  margin-bottom: 10px;
+}
+
+/* typography */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: #777;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
 }
 
 p, ol, ul, td {
@@ -63,6 +109,26 @@ label {
 .profile {
   margin-top: 10px;
   margin-bottom:10px;
+}
+
+/* header */
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  //font-size: 1.7em;
+  color: #fff;
+
+  letter-spacing: -0.5px;
+  padding-top: 10px;
+  //font-weight: bold;
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+  font-family: 'Roboto Slab', serif;
+  margin-top: 5px;
+  font-size: x-large;
 }
 
 /* footer */

@@ -2,7 +2,7 @@
 
 <h1>Toilets</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Title</th>
@@ -18,14 +18,26 @@
         <td><%= toilet.title %></td>
         <td><%= toilet.location %></td>
         <td><%= toilet.description %></td>
-        <td><%= link_to 'Show', toilet %></td>
-        <td><%= link_to 'Edit', edit_toilet_path(toilet) %></td>
-        <td><%= link_to 'Destroy', toilet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', toilet, class: "btn btn-default btn-sm"%></td>
+        <td><%= link_to edit_toilet_path(toilet), class: "btn btn-primary btn-sm" do%>
+          <span class="glyphicon glyphicon-pencil"></span> Edit
+          <%end%>
+        </td>
+        <td>
+          <%= link_to toilet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" do%>
+          <span class="glyphicon glyphicon-remove"></span> Delete
+          <%end%>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<table>
+  
+</table>
 
 <br>
 
-<%= link_to 'New Toilet', new_toilet_path %>
+<%= link_to new_toilet_path, class: "btn btn-success" do%>
+<span class="glyphicon glyphicon-plus"></span> Create New Toilet
+<%end%>
