@@ -7,8 +7,8 @@
         <li><%= link_to "Home",   root_path %></li>
         <li><%= link_to "About",  about_path %></li>
         
-        <% if logged_in? %>
-          <% if User.find(current_user.id).admin == true %>
+        <% if session[:user_id] != nil %>
+          <% if User.find(session[:user_id]).admin == true %>
           <li><%= link_to "Manage Toilets",  toilets_path %></li>
           <% end %>
           <li class="dropdown">
@@ -16,7 +16,7 @@
               Account <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <% if User.find(current_user.id).admin == false %>
+              <% if User.find(session[:user_id]).admin == false %>
                 <li><%= link_to "Profile", current_user %></li>
                 <li><%= link_to "Settings", user_settings_path(current_user) %></li>
                 <li class="divider"></li>

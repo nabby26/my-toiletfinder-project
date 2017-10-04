@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'sessions/new'
-
 	root 'home#index'
 	get  '/about',    to: 'home#about'
 	
@@ -14,7 +12,9 @@ Rails.application.routes.draw do
   	delete '/logout',  to: 'sessions#destroy'
 
   	get		'/toilets', to: 'toilets#index'
+  	get 	'/feedback', to: 'feedbacks#new'
 
 	resources :toilets
 	resources :users
+	resources :feedbacks
 end

@@ -82,4 +82,6 @@ class Toilet < ApplicationRecord
         entity
     end
     # [END to_entity]
+
+    has_many :feedbacks
 end

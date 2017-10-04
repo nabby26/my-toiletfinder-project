@@ -1,3 +1,51 @@
-<div class="center">
- 
+
+
+<div class="container">
+	<div class="row">
+		<!-- map -->
+	</div>
 </div>
+
+
+<div class="container">
+	<div class="row jumbotron">
+		<h1 class="center">Toilet facilities</h1>
+<%# [START toilets_list] %>
+		<table class="table table-hover">
+		  <thead>
+		    <tr>
+		      <th>Title</th>
+		      <th>Location</th>
+		      <th>Description</th>
+		      <th>Rating</th>
+		      <th colspan="1"></th>
+		    </tr>
+		  </thead>
+
+		  <tbody>
+		    <% @toilets.each do |toilet| %>
+		      <tr>
+		        <td><%= toilet.title %></td>
+		        <td><%= toilet.location %></td>
+		        <td><%= toilet.description %></td>
+		        <td></td>
+		        <td><%= link_to 'View Feedback', "#", class: "btn btn-default btn-sm"%></td>
+		      </tr>
+		    <% end %>
+
+		    <% if @cursor %>
+			  <nav>
+			    <ul class="pager">
+			      <li><%= link_to "More", root_path(cursor: @cursor) %></li>
+			    </ul>
+			  </nav>
+			<% end %>
+		  </tbody>
+		</table>
+<%# [END book_list] %>
+
+		<% if @toilets.none? %>
+		  <p>No toilets found.</p>
+		<% end %>
+	</div>
+	</div>

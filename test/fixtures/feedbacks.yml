@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  comment: MyString
+  overall: 1
+  cleanliness: 1
+  odour: 1
+  safety: 1
+
+two:
+  comment: MyString
+  overall: 1
+  cleanliness: 1
+  odour: 1
+  safety: 1

@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170928064942) do
+ActiveRecord::Schema.define(version: 20171003114152) do
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.string   "comment"
+    t.integer  "overall"
+    t.integer  "cleanliness"
+    t.integer  "odour"
+    t.integer  "safety"
+    t.integer  "wait_time"
+    t.datetime "check_in"
+    t.integer  "users_id"
+    t.integer  "toilets_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["toilets_id"], name: "index_feedbacks_on_toilets_id"
+    t.index ["users_id"], name: "index_feedbacks_on_users_id"
+  end
 
   create_table "toilets", force: :cascade do |t|
     t.string   "title"
@@ -23,10 +39,10 @@ ActiveRecord::Schema.define(version: 20170928064942) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "password_digest"
-    t.boolean  "admin",           default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "admin",      default: false
+    t.string   "password"
   end
 
 end
