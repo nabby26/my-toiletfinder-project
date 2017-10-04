@@ -1,19 +1,30 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @toilet.title %>
-</p>
+<div class="center">
 
-<p>
-  <strong>Location:</strong>
-  <%= @toilet.location %>
-</p>
+	<h3>  <%= @toilet.title %></h3>
+	<p>
+		<strong>Location:</strong>
+		<%= @toilet.location %>
+		<br>
+		<strong>Description:</strong>
+		<%= @toilet.description %>
+	</p>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @toilet.description %>
-</p>
+Comments section
+<% if session[:user_id] != nil %>
+	<% if User.find(session[:user_id]).admin != true %>
+		<%= link_to "#", class: "btn btn-success" do%>
+		<span class="glyphicon glyphicon-plus"></span> Add Comment
+		<%end%>
+	<%end%>
+<%end%>
+<div class="list-group">
+	<div class="list-group-item">comments</div>
+</div>
 
-<%= link_to 'Edit', edit_toilet_path(@toilet) %> |
-<%= link_to 'Back', toilets_path %>
+
+<%= link_to toilets_path, class: "btn btn-default" do %>
+<span class="glyphicon glyphicon-arrow-left"></span> Back
+<%end%> 

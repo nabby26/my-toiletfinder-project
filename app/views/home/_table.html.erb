@@ -30,12 +30,16 @@
 				<!-- toggle to show description and some comments (limit 3)-->
 				<!-- have a view more comments options -->
 				<!-- logged in users can comment from toggle -->
-				<% toggle_data = "#comments_"+toilet.id.to_s %>
+<!-- 				<% toggle_data = "#comments_"+toilet.id.to_s %>
 				<%= link_to 'View comments', 
 					"#", 
 					class: "btn btn-primary btn-sm", 
 					data: { toggle: toggle_data} 
-				%>	
+				%>	 -->
+				<%= link_to 'View comments', 
+					toilet_path(toilet), 
+					class: "btn btn-primary btn-sm"
+				%>
 
 			</td>
 		</tr>
@@ -45,11 +49,11 @@
 				<%= toilet.description %>
 			</td>
 		</tr>
-		<tr id=<%= "comments_"+toilet.id.to_s %> class="toilet-info">
+<!-- 		<tr id=<%= "comments_"+toilet.id.to_s %> class="toilet-info">
 			<td  colspan="4">
 				COMMENTS SECTION
 			</td>
-		</tr>	
+		</tr>	 -->
 		<% end %>
 
 		<% if @cursor %>

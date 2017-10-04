@@ -4,15 +4,19 @@
     <nav>
 <!--       <%= link_to root_path, class: "navbar-brand" do%>
         <%= link_to image_tag("toilet_finder_logo.png", alt: "Brand", class: "navbar-brand") %>
-      <%end%> -->
+        <%end%> -->
 
-      <%= link_to "MY TOILET FINDER", root_path, id: "logo" %>
+        <%= link_to "MY TOILET FINDER", root_path, id: "logo" %>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home",   root_path %></li>
-        <li><%= link_to "About",  about_path %></li>
-        
-        <% if session[:user_id] != nil %>
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "Home",   root_path %></li>
+          <li><%= link_to "About",  about_path %></li>
+          <% if session[:user_id] != nil %>
+          <li>
+            <%=
+            User.find(session[:user_id]).email
+            %>
+          </li>
           <% if User.find(session[:user_id]).admin == true %>
           <li><%= link_to "Manage Toilets",  toilets_path %></li>
           <% end %>
@@ -21,19 +25,19 @@
               Account <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <% if User.find(session[:user_id]).admin == false %>
-                <li><%= link_to "Profile", current_user %></li>
-                <li><%= link_to "Settings", user_settings_path(current_user) %></li>
-                <li class="divider"></li>
+              <% if User.find(session[:user_id]).admin == nil || User.find(session[:user_id]).admin != true%>
+              <li><%= link_to "Profile", current_user %></li>
+              <li><%= link_to "Settings", user_settings_path(current_user) %></li>
+              <li class="divider"></li>
               <% end %>
               <li><%= link_to "Log out", logout_path, method: :delete %></li>
             </ul>
           </li>
-        <% else %>
+          <% else %>
           <li><%= link_to "Log in/Sign up", login_path %></li>
-        <% end %>
+          <% end %>
 
-      </ul>
-    </nav>
-  </div>
-</header>
+        </ul>
+      </nav>
+    </div>
+  </header>

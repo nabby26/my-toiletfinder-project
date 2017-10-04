@@ -111,9 +111,9 @@ class User < ApplicationRecord
     entity                 = Google::Cloud::Datastore::Entity.new
     entity.key             = Google::Cloud::Datastore::Key.new "User", id
     entity["name"]         = name
-    entity["email"]        = email       if email
-    entity["password"]     = password if password
-    entity["admin"]        = admin  if admin
+    entity["email"]        = email   
+    entity["password"]     = password 
+    entity["admin"]        = admin
     entity
   end
   # [END to_entity]
