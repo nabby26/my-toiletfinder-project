@@ -33,15 +33,13 @@ class User < ApplicationRecord
 
 
   #Lookup User by email. returns User or nil
-  def find_by_email email
-    datastore = Google::Cloud::Datastore.new
+  def self.find_by_email email
     query = Google::Cloud::Datastore::Query.new
-    query.kind("User").where("email", "=", email)
+    query.kind("User").
+      where("email", "=", "admin@gmail.com")
 
-    results = datastore.run query
-
-    user   = results.map {|entity| User.from_entity entity }
-    return user
+    result = dataset.run query
+    from_entity result.first if result.any?
   end
 
   # Add Active Model validation support to User class.
