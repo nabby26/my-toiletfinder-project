@@ -1,0 +1,63 @@
+<%= javascript_include_tag 'toggle' %>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Description</th>
+			<th>Overall Rating</th>
+			<th colspan="2"></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @toilets.each do |toilet| %>
+		<tr>
+			<td>
+				<h6><span class="glyphicon glyphicon-map-marker"></span><%= toilet.location %></h6>
+			</td>
+			<td>
+				<%= render 'home/overall-rating' %>
+			</td>
+			<td>
+				<!-- toggle to show description and some comments (limit 3)-->
+				<!-- have a view more comments options -->
+				<!-- logged in users can comment from toggle -->
+				<% toggle_data = "#"+toilet.id.to_s%>
+				<%= link_to 'View more', "#", class: "btn btn-default btn-sm", 
+				data: { toggle: toggle_data} %>	
+
+			</td>
+			<td>
+				<!-- toggle to show description and some comments (limit 3)-->
+				<!-- have a view more comments options -->
+				<!-- logged in users can comment from toggle -->
+				<% toggle_data = "#comments_"+toilet.id.to_s %>
+				<%= link_to 'View comments', 
+					"#", 
+					class: "btn btn-primary btn-sm", 
+					data: { toggle: toggle_data} 
+				%>	
+
+			</td>
+		</tr>
+		<tr id=<%= toilet.id %> class="toilet-info">
+			<td  colspan="4">
+				<%= toilet.title %>
+				<%= toilet.description %>
+			</td>
+		</tr>
+		<tr id=<%= "comments_"+toilet.id.to_s %> class="toilet-info">
+			<td  colspan="4">
+				COMMENTS SECTION
+			</td>
+		</tr>	
+		<% end %>
+
+		<% if @cursor %>
+		<nav>
+			<ul class="pager">
+				<li><%= link_to "More", root_path(cursor: @cursor) %></li>
+			</ul>
+		</nav>
+		<% end %>
+	</tbody>
+</table>

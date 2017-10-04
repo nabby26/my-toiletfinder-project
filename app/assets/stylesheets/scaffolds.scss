@@ -2,6 +2,27 @@
 @import "bootstrap";
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
 
+/* header */
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  //font-size: 1.7em;
+  color: #fff;
+
+  letter-spacing: -0.5px;
+  padding-top: 10px;
+  //font-weight: bold;
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+  font-family: 'Roboto Slab', serif;
+  margin-top: 5px;
+  font-size: x-large;
+}
+
+
 /* universal */
 
 body {
@@ -11,11 +32,9 @@ body {
   font-size: 13px;
   line-height: 18px;
   margin: 33px;
+  padding-top: 60px;
 }
 
-section {
-  overflow: auto;
-}
 
 textarea {
   resize: vertical;
@@ -72,9 +91,9 @@ pre {
 a {
   color: #000;
 
-  &:visited {
-    color: #666;
-  }
+//  &:visited {
+  //  color: #666;
+ // }
 
   &:hover {
     color: #fff;
@@ -109,26 +128,6 @@ label {
 .profile {
   margin-top: 10px;
   margin-bottom:10px;
-}
-
-/* header */
-
-#logo {
-  float: left;
-  margin-right: 10px;
-  //font-size: 1.7em;
-  color: #fff;
-
-  letter-spacing: -0.5px;
-  padding-top: 10px;
-  //font-weight: bold;
-  &:hover {
-    color: #fff;
-    text-decoration: none;
-  }
-  font-family: 'Roboto Slab', serif;
-  margin-top: 5px;
-  font-size: x-large;
 }
 
 /* footer */
@@ -190,6 +189,8 @@ input {
   }
 }
 
-.row.jumbotron {
-    margin-top: 50px;
+
+.toilet-info {
+    display: none;
+    background-color: rgba(128, 128, 128, 0.17);
 }

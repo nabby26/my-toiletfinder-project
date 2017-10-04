@@ -1,8 +1,13 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to "MY TOILET FINDER", root_path, id: "logo" %>
 
     <nav>
+<!--       <%= link_to root_path, class: "navbar-brand" do%>
+        <%= link_to image_tag("toilet_finder_logo.png", alt: "Brand", class: "navbar-brand") %>
+      <%end%> -->
+
+      <%= link_to "MY TOILET FINDER", root_path, id: "logo" %>
+
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home",   root_path %></li>
         <li><%= link_to "About",  about_path %></li>
