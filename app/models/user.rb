@@ -42,6 +42,9 @@ class User < ApplicationRecord
     from_entity result.first if result.any?
   end
 
+  def authenticate password
+  end 
+  
   # Add Active Model validation support to User class.
   include ActiveModel::Validations
 

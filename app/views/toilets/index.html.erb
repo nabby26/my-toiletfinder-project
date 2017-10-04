@@ -18,7 +18,7 @@
         <td><%= toilet.title %></td>
         <td><%= toilet.location %></td>
         <td><%= toilet.description %></td>
-        <td><%= link_to 'Show', toilet, class: "btn btn-default btn-sm"%></td>
+        <td><%= link_to 'Show', toilet_path(toilet), class: "btn btn-default btn-sm"%></td>
         <td><%= link_to edit_toilet_path(toilet), class: "btn btn-primary btn-sm" do%>
           <span class="glyphicon glyphicon-pencil"></span> Edit
           <%end%>
