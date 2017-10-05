@@ -59,10 +59,26 @@ GEM
     concurrent-ruby (1.0.5)
     debug_inspector (0.0.3)
     erubis (2.7.0)
+    excon (0.59.0)
     execjs (2.7.0)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
+    fog-core (1.45.0)
+      builder
+      excon (~> 0.58)
+      formatador (~> 0.2)
+    fog-google (0.1.0)
+      fog-core
+      fog-json
+      fog-xml
+    fog-json (1.0.2)
+      fog-core (~> 1.0)
+      multi_json (~> 1.10)
+    fog-xml (0.1.3)
+      fog-core
+      nokogiri (>= 1.5.11, < 2.0.0)
+    formatador (0.2.5)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     google-cloud-core (1.0.0)
@@ -243,6 +259,7 @@ DEPENDENCIES
   appengine (~> 0.4.2)
   byebug
   coffee-rails (~> 4.2)
+  fog-google
   google-cloud-datastore
   jbuilder (~> 2.5)
   jquery-rails
@@ -259,4 +276,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.15.4
+   1.16.0.pre.2
