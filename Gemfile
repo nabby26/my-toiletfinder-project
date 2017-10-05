@@ -40,6 +40,9 @@ gem 'fog-google'
 # Use Google cloud
 gem 'google-cloud-datastore', require: 'google/cloud/datastore'
 
+# Use Google Cloud Storage
+gem 'google-cloud-storage'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

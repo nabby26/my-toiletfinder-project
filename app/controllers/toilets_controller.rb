@@ -1,3 +1,4 @@
+require "google/cloud/storage"
 class ToiletsController < ApplicationController
   before_action :set_toilet, only: [:show, :edit, :update, :destroy]
 
@@ -26,7 +27,18 @@ class ToiletsController < ApplicationController
   # POST /toilets
   # POST /toilets.json
   def create
+    # storage = Google::Cloud::Storage.new(
+    #   project: "my-toiletfinder-project",
+    #   keyfile: "#{Rails.root}/credential/ToiletFinder-9ede96ffc554.json"
+    # )
+    
+    # bucket = storage.bucket "my-toiletfinder-project"
+    # file_url = params["toilet"]["image_url"].tempfile.path
+
+    # bucket.create_file file_url, Time.now.getutc.to_s
+
     @toilet = Toilet.new(toilet_params)
+    
 
     respond_to do |format|
       if @toilet.save
@@ -71,6 +83,6 @@ class ToiletsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def toilet_params
-      params.require(:toilet).permit(:title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt, :toilet_photo)
+      params.require(:toilet).permit(:title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt, :image_url)
     end
 end
