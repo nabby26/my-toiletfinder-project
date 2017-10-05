@@ -1,2 +1,8 @@
-<h1>Feedbacks#new</h1>
-<p>Find me in app/views/feedbacks/new.html.erb</p>
+<% provide(:title, 'Comment') %>
+<% provide(:button_text, 'Add comment') %>
+<h1>Feedback</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= render 'form'%>
+  </div>
+</div>

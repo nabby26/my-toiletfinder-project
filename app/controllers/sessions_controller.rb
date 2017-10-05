@@ -3,10 +3,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by_email(params[:session][:email].downcase)
+    @user = User.find_by_email(params[:session][:email].downcase)
 
-    if user && user.password == params[:session][:password]
-      log_in user
+    if @user && @user.password == params[:session][:password]
+      log_in @user
       redirect_to root_url
     else
       flash.now[:danger] = 'Invalid email/password combination'
@@ -18,5 +18,10 @@ class SessionsController < ApplicationController
     log_out
     redirect_to root_url
   end
+
+  private 
+  def user_email_param
+    params.require(:user).permit(:email).downcase
+  end 
 
 end

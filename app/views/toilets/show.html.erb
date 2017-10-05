@@ -1,3 +1,5 @@
+<%= javascript_include_tag 'toggle' %>
+
 <p id="notice"><%= notice %></p>
 
 <div class="center">
@@ -13,18 +15,20 @@
 </div>
 
 Comments section
+<div class="list-group">
+	<div class="list-group-item">comments</div>
+</div>
+<div class="center">
 <% if session[:user_id] != nil %>
 	<% if User.find(session[:user_id]).admin != true %>
-		<%= link_to "#", class: "btn btn-success" do%>
+		<%= link_to feedback_path(:toilet => @toilet.id), class: "btn btn-success btn-sm" do%>
 		<span class="glyphicon glyphicon-plus"></span> Add Comment
 		<%end%>
 	<%end%>
 <%end%>
-<div class="list-group">
-	<div class="list-group-item">comments</div>
 </div>
 
-
+<br>
 <%= link_to toilets_path, class: "btn btn-default" do %>
 <span class="glyphicon glyphicon-arrow-left"></span> Back
 <%end%> 

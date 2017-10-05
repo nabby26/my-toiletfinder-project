@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   	delete '/logout',  to: 'sessions#destroy'
 
   	get		'/toilets', to: 'toilets#index'
+
   	get 	'/feedback', to: 'feedbacks#new'
+  	post 	'/feedback', to: 'feedbacks#create'
 
 	resources :toilets
 	resources :users

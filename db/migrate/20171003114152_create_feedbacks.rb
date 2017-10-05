@@ -8,8 +8,8 @@ class CreateFeedbacks < ActiveRecord::Migration[5.0]
       t.integer :safety
       t.integer :wait_time
       t.datetime :check_in
-      t.references :users, foreign_key: true
-      t.references :toilets, foreign_key: true
+      t.references :user, foreign_key: true
+      t.references :toilet, foreign_key: true
 
       t.timestamps
     end
