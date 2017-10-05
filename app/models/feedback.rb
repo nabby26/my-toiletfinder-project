@@ -43,15 +43,37 @@ class Feedback < ApplicationRecord
   # [END from_entity]
 
     # [START find]
-    # Lookup Toilet by ID.  Returns Toilet or nil.
+    # Lookup Toilet by toilet ID.  Returns Toilet or nil.
     def self.find_toilet_feedback toilet_id
      query = Google::Cloud::Datastore::Query.new
      query.kind("Feedback").
-     where("toilet_id", "=", toilet_id.to_i)
+     where("toilet_id", "=", toilet_id.to_s)
 
      result = dataset.run query
      feedback = result.map {|entity| Feedback.create_hash entity }
      return feedback
+   end
+    # [END find]
+
+    # [START find]
+    # Lookup Toilet by ID.  Returns Toilet or nil.
+    def self.find_overall_rating toilet_id
+     query = Google::Cloud::Datastore::Query.new
+     query.kind("Feedback").
+     where("toilet_id", "=", toilet_id.to_s)
+
+     result = dataset.run query
+     feedbacks = result.map {|entity| Feedback.create_hash entity }
+     if feedbacks.none?
+      return nil
+     end
+     count = 0
+     sum = 0 
+      feedbacks.each do |feedback|
+        count += 1
+        sum += feedback.overall.to_i
+      end 
+     return sum.to_f/count
    end
     # [END find]
 

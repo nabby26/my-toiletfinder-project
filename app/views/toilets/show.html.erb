@@ -17,32 +17,76 @@
 Comments section
 <hr>
 <div class="list-group">
-	<% if @feedbacks == nil || @feedbacks.none?%>
-  		<div class="center">No comments available</div>
+	<% if @feedbacks.none? %>
+	<div class="center">No comments available</div>
 	<% else %>
-		<% @feedbacks.each do |feedback| %>
-			<div class="list-group-item">
-				<%= feedback.id%>
-				<%= feedback.comment%>
-				<%= feedback.overall%>
-				<%= feedback.cleanliness%>
-				<%= feedback.odour%>
-				<%= feedback.safety%>
-			</div>
-		<%end%>
-	<% end %>
+	<% @feedbacks.each do |feedback| %>
+	<div class="list-group-item">
+		<div class="col-xs-6">
+
+		</div>
+		<div class="col-xs-6">
+			Overall: 
+			<%(1..5).each do |i|%>
+			<%if i <= feedback.overall.to_i %>
+			<span class="glyphicon glyphicon-star"></span>
+			<%else%>
+			<span class="glyphicon glyphicon-star-empty"></span>
+			<%end%>
+			<%end%>
+			<br> 
+			Cleanliness: 
+			<%(1..5).each do |i|%>
+			<%if i <= feedback.cleanliness.to_i%>
+			<span class="glyphicon glyphicon-star"></span>
+			<%else%>
+			<span class="glyphicon glyphicon-star-empty"></span>
+			<%end%>
+			<%end%>
+			<br> 
+			Odour: 
+			<%(1..5).each do |i|%>
+			<%if i <= feedback.odour.to_i%>
+			<span class="glyphicon glyphicon-star"></span>
+			<%else%>
+			<span class="glyphicon glyphicon-star-empty"></span>
+			<%end%>
+			<%end%>
+			<br> 
+			Safety: 
+			<%(1..5).each do |i|%>
+			<%if i <= feedback.safety.to_i%>
+			<span class="glyphicon glyphicon-star"></span>
+			<%else%>
+			<span class="glyphicon glyphicon-star-empty"></span>
+			<%end%>
+			<%end%>
+		</div>
+		<%= User.find(feedback.user_id.to_i).name %> commented: <br>
+		<%= feedback.comment%>
+	</div>
+	<%end%>
+	<%end%>
 </div>
 <div class="center">
-<% if session[:user_id] != nil %>
+	<% if session[:user_id] != nil %>
 	<% if User.find(session[:user_id]).admin != true %>
-		<%= link_to feedback_path(:toilet => @toilet.id), class: "btn btn-success btn-sm" do%>
-		<span class="glyphicon glyphicon-plus"></span> Add Comment
-		<%end%>
+	<%= link_to feedback_path(:toilet => @toilet.id), class: "btn btn-success btn-sm" do%>
+	<span class="glyphicon glyphicon-plus"></span> Add Comment
 	<%end%>
-<%end%>
+	<%end%>
+	<%end%>
 </div>
 
 <br>
+<% if session[:user_id] != nil %>
+<% if User.find(session[:user_id]).admin == true %>
 <%= link_to toilets_path, class: "btn btn-default" do %>
 <span class="glyphicon glyphicon-arrow-left"></span> Back
 <%end%> 
+<%else%>
+<%= link_to root_path, class: "btn btn-default" do %>
+<span class="glyphicon glyphicon-arrow-left"></span> Back
+<%end%> 
+<%end%>
+<%end%>

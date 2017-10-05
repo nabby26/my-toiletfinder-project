@@ -1,6 +1,13 @@
-		        	<!-- calculate overall ratings from all the feedbacks overall ratings -->
-		        	<span class="glyphicon glyphicon-star"></span>
-		        	<span class="glyphicon glyphicon-star"></span>
-		        	<span class="glyphicon glyphicon-star"></span>
-		        	<span class="glyphicon glyphicon-star-empty"></span>
-		        	<span class="glyphicon glyphicon-star-empty"></span>
+<!-- calculate overall ratings from all the feedbacks overall ratings -->
+<%	overall = Feedback.find_overall_rating(toilet.id) %>
+<%if overall == nil%>
+	None
+<%else%>
+<%(1..5).each do |i|%>
+	<%if i <= overall %>
+	<span class="glyphicon glyphicon-star"></span>
+	<%else%>
+	<span class="glyphicon glyphicon-star-empty"></span>
+	<%end%>
+<%end%>
+<%end%>

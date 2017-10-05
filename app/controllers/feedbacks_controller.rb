@@ -9,23 +9,15 @@ class FeedbacksController < ApplicationController
   def create
     @user_id = session[:user_id]
     @toilet_id = params[:feedback][:toilet_id]
-    if @toilet_id == nil
-      flash[:success] = "Toilet cannot be found"
-      redirect_to root_url
-    end
     @toilet = Toilet.find(@toilet_id)
-    # Need to calculate overall rating
-    @feedback = Feedback.new(feedback_params.merge(overall: 5, user_id: @user_id, toilet_id: @toilet_id))
+    @feedback = Feedback.new(feedback_params.merge(user_id: @user_id, toilet_id: @toilet_id))
     if @feedback.save
       flash[:success] = "Commented"
       redirect_to toilet_path(@toilet_id)
     else
-      render :action => "new", :toilet => @toilet
+      render :action => "new", :toilet => @toilet, :feedback => Feedback.new
     end
   end 
-
-  def calculate_overall_rating
-  end
 
   def edit
   end 
@@ -39,6 +31,14 @@ class FeedbacksController < ApplicationController
   private
 
   def feedback_params
-    params.require(:feedback).permit(:comment, :cleanliness, :odour, :safety)
+    # calculating overall rating
+    cleanliness = params[:feedback][:cleanliness].to_i
+    odour = 6 - params[:feedback][:odour].to_i
+    safety = params[:feedback][:safety].to_i
+
+    overall = (cleanliness + odour + safety).to_f/3
+
+
+    params.require(:feedback).permit(:comment, :cleanliness, :odour, :safety).merge(overall: overall)
   end
 end
