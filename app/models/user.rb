@@ -131,7 +131,4 @@ class User < ApplicationRecord
     User.dataset.delete Google::Cloud::Datastore::Key.new "User", id
   end
 
-
-  has_many :feedbacks
-
 end

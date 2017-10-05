@@ -13,10 +13,24 @@
 		<%= @toilet.description %>
 	</p>
 </div>
-
+<hr>
 Comments section
+<hr>
 <div class="list-group">
-	<div class="list-group-item">comments</div>
+	<% if @feedbacks == nil || @feedbacks.none?%>
+  		<div class="center">No comments available</div>
+	<% else %>
+		<% @feedbacks.each do |feedback| %>
+			<div class="list-group-item">
+				<%= feedback.id%>
+				<%= feedback.comment%>
+				<%= feedback.overall%>
+				<%= feedback.cleanliness%>
+				<%= feedback.odour%>
+				<%= feedback.safety%>
+			</div>
+		<%end%>
+	<% end %>
 </div>
 <div class="center">
 <% if session[:user_id] != nil %>

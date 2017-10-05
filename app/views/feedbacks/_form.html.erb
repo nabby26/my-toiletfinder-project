@@ -15,8 +15,7 @@
 	<%= f.label :safety %>
 	<%= f.select :safety, [1, 2, 3, 4, 5],  class: 'form-control'  %>
 
-	<%= f.hidden_field :toilets_id, :value => @toilet.id %>
-
+	<%= f.hidden_field :toilet_id, :value => @toilet.id %>
 	<%= f.submit yield(:button_text), class: "btn btn-primary" %>
 
 	<% end %>

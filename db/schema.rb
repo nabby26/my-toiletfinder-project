@@ -10,22 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171003114152) do
+ActiveRecord::Schema.define(version: 20171005064457) do
 
   create_table "feedbacks", force: :cascade do |t|
-    t.string   "comment"
+    t.string   "comments"
     t.integer  "overall"
     t.integer  "cleanliness"
     t.integer  "odour"
     t.integer  "safety"
     t.integer  "wait_time"
     t.datetime "check_in"
-    t.integer  "users_id"
-    t.integer  "toilets_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["toilets_id"], name: "index_feedbacks_on_toilets_id"
-    t.index ["users_id"], name: "index_feedbacks_on_users_id"
+    t.integer  "user_id",     limit: 20
+    t.integer  "toilet_id",   limit: 20
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "toilets", force: :cascade do |t|

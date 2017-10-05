@@ -7,7 +7,7 @@ class Toilet < ApplicationRecord
     def self.dataset
         @dataset ||= Google::Cloud::Datastore.new(
             project: Rails.application.config.database_configuration[Rails.env]["dataset_id"]
-        )
+            )
     end
 
     # [START query]
@@ -52,6 +52,7 @@ class Toilet < ApplicationRecord
     end
     # [END find]
 
+
     # Add Active Model support.
     # Provides constructor that takes a Hash of attribute values.
     include ActiveModel::Model
@@ -60,14 +61,14 @@ class Toilet < ApplicationRecord
     # Save the Toilet to Datastore.
     # @return true if valid and saved successfully, otherwise false.
     def save
-    if valid?
-        entity = to_entity
-        Toilet.dataset.save entity
-        self.id = entity.key.id
-        true
-    else
-        false
-    end
+        if valid?
+            entity = to_entity
+            Toilet.dataset.save entity
+            self.id = entity.key.id
+            true
+        else
+            false
+        end
     end
     # [END save]
 
@@ -83,5 +84,4 @@ class Toilet < ApplicationRecord
     end
     # [END to_entity]
 
-    has_many :feedbacks
 end
