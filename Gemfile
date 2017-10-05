@@ -59,3 +59,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Added at 2017-09-21 01:06:11 +1000 by olddata:
 gem "appengine", "~> 0.4.2"
+
+# Add Carrierwave for Google Storage
+gem 'carrierwave'
