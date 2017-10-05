@@ -1,6 +1,6 @@
 default: &default
   cloud_storage:
-    bucket: my-toiletfinder-project
+    bucket: my-toiletfinder-project.appspot.com
     access_key_id: GOOGKAXF4Y7EKQ62P7LS
     secret_access_key: a7ZssG9XdLbMWKIXdGxdEuM/e1yWtphO1ie3zrep
 
