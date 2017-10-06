@@ -1,0 +1,16 @@
+current directory: C:/Users/Nancy/Documents/GitHub/my-toiletfinder-project/vendor/bundle/ruby/2.4.0/gems/debug_inspector-0.0.3/ext/debug_inspector
+C:/Ruby24-x64/bin/ruby.exe -r ./siteconf20171006-8672-1pxslwn.rb extconf.rb
+creating Makefile
+
+current directory: C:/Users/Nancy/Documents/GitHub/my-toiletfinder-project/vendor/bundle/ruby/2.4.0/gems/debug_inspector-0.0.3/ext/debug_inspector
+make "DESTDIR=" clean
+
+current directory: C:/Users/Nancy/Documents/GitHub/my-toiletfinder-project/vendor/bundle/ruby/2.4.0/gems/debug_inspector-0.0.3/ext/debug_inspector
+make "DESTDIR="
+generating debug_inspector-x64-mingw32.def
+compiling debug_inspector.c
+linking shared-object debug_inspector.so
+
+current directory: C:/Users/Nancy/Documents/GitHub/my-toiletfinder-project/vendor/bundle/ruby/2.4.0/gems/debug_inspector-0.0.3/ext/debug_inspector
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 debug_inspector.so ./.gem.20171006-8672-9dvwoa
