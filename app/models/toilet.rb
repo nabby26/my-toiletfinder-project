@@ -101,6 +101,16 @@ class Toilet < ApplicationRecord
 
     # BIG QUERY DATA
 
+    # [START from_entity]
+    def self.create_hash entity
+      toilet = Toilet.new
+      # feedback.id = feedback.key.id
+      entity.each do |name, value|
+        toilet.send "#{name}=", value if toilet.respond_to? "#{name}="
+      end
+      toilet
+    end
+
     # [START toilet_from_big_query]
     # ...
     def get_public_toilets
@@ -108,11 +118,29 @@ class Toilet < ApplicationRecord
         # [END build_service]
 
         # [START run_query]
-        sql = "SELECT *" +
-                "FROM [my-toiletfinder-project:Toilet.PublicToilets]"
-        results = bigquery.query sql
+        sql = "SELECT * FROM `my-toiletfinder-project.Toilet.PublicToilets`"
+        result = bigquery.query sql
+
+        toilets = result.map {|entity| Toilet.create_hash entity }
         # [END run_query]
-        return results
+        return toilets
+    end
+    # [END toilet_from_big_query]
+
+    # [START toilet_from_big_query]
+    # ...
+    def get_public_toilet id
+        bigquery = Google::Cloud::Bigquery.new project: "my-toiletfinder-project"
+        # [END build_service]
+
+        # [START run_query]
+        sql = "SELECT * FROM `my-toiletfinder-project.Toilet.PublicToilets`" + 
+                "WHERE id = "+ id.to_s
+        result = bigquery.query sql
+
+        toilets = result.map {|entity| Toilet.create_hash entity }
+        # [END run_query]
+        return toilets
     end
     # [END toilet_from_big_query]
 
