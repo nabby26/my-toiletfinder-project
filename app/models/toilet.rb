@@ -1,9 +1,11 @@
 require "google/cloud/datastore"
+require 'carrierwave/orm/activerecord'
 require "google/cloud/bigquery"
 class Toilet < ApplicationRecord
-    attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, 
-    :disabled_opt, :female, :male, :lon, :lat, :public_toilet
-
+    attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt, :image,:female, :male, :lon, :lat, :public_toilet
+    
+    mount_uploaders :image, PhotoUploader
+    
     # Return a Google::Cloud::Datastore::Dataset for the configured dataset.
     # The dataset is used to create, read, update, and delete entity objects.
     def self.dataset
@@ -98,6 +100,27 @@ class Toilet < ApplicationRecord
     end
     # [END to_entity]
 
+    # [START update]
+    # Set attribute values from provided Hash and save to Datastore.
+    def update attributes
+        attributes.each do |name, value|
+            send "#{name}=", value if respond_to? "#{name}="
+        end
+        save
+    end
+    # [END update]
+
+   # [START destroy]
+    def destroy
+     Toilet.dataset.delete Google::Cloud::Datastore::Key.new "Toilet", id
+    end
+  # [END destroy]
+
+##################
+
+  def persisted?
+    id.present?
+  end   
 
     # BIG QUERY DATA
 
