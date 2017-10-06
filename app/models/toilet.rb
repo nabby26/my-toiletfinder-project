@@ -1,8 +1,9 @@
 require "google/cloud/datastore"
 require 'carrierwave/orm/activerecord'
 class Toilet < ApplicationRecord
-    attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt, :image_url
-
+    attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt, :image
+    
+    mount_uploaders :image, PhotoUploader
     # Return a Google::Cloud::Datastore::Dataset for the configured dataset.
     # The dataset is used to create, read, update, and delete entity objects.
     def self.dataset

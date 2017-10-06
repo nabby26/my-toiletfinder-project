@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171005022302) do
+ActiveRecord::Schema.define(version: 20171006061003) do
 
   create_table "toilets", force: :cascade do |t|
     t.string   "title"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20171005022302) do
     t.boolean  "parentsRoom",    default: false
     t.boolean  "gender_neutral", default: false
     t.boolean  "disabled_opt",   default: false
-    t.string   "image_url"
+    t.string   "image"
   end
 
 end
