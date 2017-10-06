@@ -14,7 +14,7 @@ class ToiletsController < ApplicationController
     @toilet = Toilet.find params[:id]
     @feedbacks = Feedback.find_toilet_feedback params[:id]
   end
-
+ 
   # GET /toilets/new
   def new
     @toilet = Toilet.new
@@ -72,9 +72,11 @@ class ToiletsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def toilet_params
-      #Need to calculate (backend) the long and lat from the location given
+      # Need to calculate (backend) the long and lat from the location given
+      # Make an API call to google maps and verify. If location is not valid then reject the create/update
+
       params.require(:toilet).permit(:title, :location, :description, :parentsRoom, 
-        :gender_neutral, :disabled_opt, :female, :male)
+        :gender_neutral, :disabled_opt, :female, :male).merge(public_toilet: false)
     end
 
     #Confirms admin user

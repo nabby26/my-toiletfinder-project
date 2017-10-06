@@ -10,45 +10,7 @@
 
 	<tbody>
 		<% @toilets.each do |toilet| %>
-		<tr>
-			<td>
-				<h6><span class="glyphicon glyphicon-map-marker"></span><%= toilet.location %></h6>
-			</td>
-			<td>
-				<%= render 'home/overall-rating', :toilet => toilet %>
-			</td>
-			<td>
-				<% toggle_data = "#"+toilet.id.to_s%>
-				<%= link_to 'View more', "#", class: "btn btn-default btn-sm", 
-				data: { toggle: toggle_data} %>	
-
-			</td>
-			<td>
-				<%= link_to 'View comments', 
-				toilet_path(toilet), 
-				class: "btn btn-primary btn-sm"
-					%>
-
-				</td>
-			</tr>
-			<tr id=<%= toilet.id %> class="toilet-info">
-				<td  colspan="4">
-					<h5>
-						<%= toilet.title %> <br> 
-						<small>
-							Description: <%= toilet.description %><br>
-							<strong>Parentsroom:</strong> <%= toilet.parentsRoom %> <br>
-							<strong>Gender neutral:</strong> <%= toilet.gender_neutral %> <br>
-							<strong>Disabled opt:</strong> <%= toilet.disabled_opt %>
-						</small> 
-					</h5>
-				</td>
-			</tr>
-<!-- 		<tr id=<%= "comments_"+toilet.id.to_s %> class="toilet-info">
-			<td  colspan="4">
-				COMMENTS SECTION
-			</td>
-		</tr>	 -->
+			<%= render 'home/populate_table', :toilet => toilet %>
 		<% end %>
 
 		<% if @cursor %>

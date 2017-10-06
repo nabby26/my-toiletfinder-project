@@ -1,6 +1,8 @@
 require "google/cloud/datastore"
+require "google/cloud/bigquery"
 class Toilet < ApplicationRecord
-    attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt, :female, :male
+    attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, 
+    :disabled_opt, :female, :male, :lon, :lat, :public_toilet
 
     # Return a Google::Cloud::Datastore::Dataset for the configured dataset.
     # The dataset is used to create, read, update, and delete entity objects.
@@ -89,8 +91,30 @@ class Toilet < ApplicationRecord
         entity["disabled_opt"]      = disabled_opt == "1" ? true : false
         entity["female"]            = female == "1" ? true : false
         entity["male"]              = male == "1" ? true : false
+        entity["lon"]               = lon if lon
+        entity["lat"]               = lat if lat
+        entity["public_toilet"]     = public_toilet if public_toilet
         entity
     end
     # [END to_entity]
+
+
+    # BIG QUERY DATA
+
+    # [START toilet_from_big_query]
+    # ...
+    def get_public_toilets
+        bigquery = Google::Cloud::Bigquery.new project: "my-toiletfinder-project"
+        # [END build_service]
+
+        # [START run_query]
+        sql = "SELECT *" +
+                "FROM [my-toiletfinder-project:Toilet.PublicToilets]"
+        results = bigquery.query sql
+        # [END run_query]
+        return results
+    end
+    # [END toilet_from_big_query]
+
 
 end

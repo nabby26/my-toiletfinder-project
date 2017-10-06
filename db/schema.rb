@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171006063928) do
+ActiveRecord::Schema.define(version: 20171006081924) do
 
   create_table "feedbacks", force: :cascade do |t|
     t.string   "comments"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20171006063928) do
     t.boolean  "male",           default: false
     t.float    "lon"
     t.float    "lat"
+    t.boolean  "public_data",    default: false
   end
 
   create_table "users", force: :cascade do |t|

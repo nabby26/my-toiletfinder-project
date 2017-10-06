@@ -30,6 +30,9 @@ gem 'wdm', '>= 0.1.0' if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
 # Use Google cloud
 gem 'google-cloud-datastore', require: 'google/cloud/datastore'
 
+#Use Big query
+gem "google-cloud-bigquery", require: 'google/cloud/bigquery'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
