@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171005064457) do
+ActiveRecord::Schema.define(version: 20171006063928) do
 
   create_table "feedbacks", force: :cascade do |t|
     t.string   "comments"
@@ -30,8 +30,15 @@ ActiveRecord::Schema.define(version: 20171005064457) do
     t.string   "title"
     t.string   "location"
     t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "parentsRoom",    default: false
+    t.boolean  "gender_neutral", default: false
+    t.boolean  "disabled_opt",   default: false
+    t.boolean  "female",         default: false
+    t.boolean  "male",           default: false
+    t.float    "lon"
+    t.float    "lat"
   end
 
   create_table "users", force: :cascade do |t|

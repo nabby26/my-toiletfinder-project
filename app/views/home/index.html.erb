@@ -8,10 +8,7 @@
 <div class="container">
 	<div class="row col-xs-8 col-md-offset-2">
 		<h3 class="center">Toilet facilities</h3>
-		<%# [START toilets_list] %>
 		<%= render 'home/table' %>
-		<%# [END book_list] %>
-
 		<% if @toilets.none? %>
 			<p>No toilets found.</p>
 		<% end %>

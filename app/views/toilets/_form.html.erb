@@ -10,5 +10,20 @@
     <%= f.label :description %>
     <%= f.text_field :description, class: 'form-control' %>
 
+    <%= f.label :parentsRoom  , {class: "checkbox inline"} %>
+    <%= f.check_box :parentsRoom, class: 'form-control'%>
+
+    <%= f.label :gender_neutral , {class: "checkbox inline"}  %>
+    <%= f.check_box :gender_neutral, class: 'form-control' %>
+
+    <%= f.label :female  , {class: "checkbox inline"} %>
+    <%= f.check_box :female, class: 'form-control' %>
+
+    <%= f.label :male  , {class: "checkbox inline"}  %>
+    <%= f.check_box :male, class: 'form-control' %>
+
+    <%= f.label :disabled_opt  , {class: "checkbox inline"}  %>
+    <%= f.check_box :disabled_opt, class: 'form-control'%>
+
     <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>

@@ -1,6 +1,6 @@
 require "google/cloud/datastore"
 class Toilet < ApplicationRecord
-    attr_accessor :id, :title, :location, :description
+    attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt, :female, :male
 
     # Return a Google::Cloud::Datastore::Dataset for the configured dataset.
     # The dataset is used to create, read, update, and delete entity objects.
@@ -57,6 +57,10 @@ class Toilet < ApplicationRecord
     # Provides constructor that takes a Hash of attribute values.
     include ActiveModel::Model
 
+    validates :title,  presence: true, length: { maximum: 50 }
+    validates :location,  presence: true, length: { maximum: 50 }
+    validates :description, length: { maximum: 100 }
+
     # [START save]
     # Save the Toilet to Datastore.
     # @return true if valid and saved successfully, otherwise false.
@@ -75,11 +79,16 @@ class Toilet < ApplicationRecord
     # [START to_entity]
     # ...
     def to_entity
-        entity                 = Google::Cloud::Datastore::Entity.new
-        entity.key             = Google::Cloud::Datastore::Key.new "Toilet", id
-        entity["title"]        = title
-        entity["location"]       = location
+        entity                      = Google::Cloud::Datastore::Entity.new
+        entity.key                  = Google::Cloud::Datastore::Key.new "Toilet", id
+        entity["title"]             = title
+        entity["location"]          = location
         entity["description"]       = description
+        entity["parentsRoom"]       = parentsRoom == "1" ? true : false
+        entity["gender_neutral"]    = gender_neutral == "1" ? true : false
+        entity["disabled_opt"]      = disabled_opt == "1" ? true : false
+        entity["female"]            = female == "1" ? true : false
+        entity["male"]              = male == "1" ? true : false
         entity
     end
     # [END to_entity]

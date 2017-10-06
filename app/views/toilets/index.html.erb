@@ -9,6 +9,11 @@
         <th>Title</th>
         <th>Location</th>
         <th>Description</th>
+        <th>Parentsroom</th>
+        <th>Gender neutral</th>
+        <th>Female</th>
+        <th>Male</th>
+        <th>Disabled opt</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -19,6 +24,11 @@
           <td><%= toilet.title %></td>
           <td><%= toilet.location %></td>
           <td><%= toilet.description %></td>
+          <td><%= toilet.parentsRoom %></td>
+          <td><%= toilet.gender_neutral %></td>
+          <td><%= toilet.female %></td>
+          <td><%= toilet.male %></td>
+          <td><%= toilet.disabled_opt %></td>
           <td><%= link_to 'Show', toilet_path(toilet), class: "btn btn-default btn-sm"%></td>
           <td><%= link_to edit_toilet_path(toilet), class: "btn btn-primary btn-sm" do%>
             <span class="glyphicon glyphicon-pencil"></span> Edit

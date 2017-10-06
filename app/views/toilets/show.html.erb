@@ -4,13 +4,31 @@
 
 <div class="center">
 
-	<h3>  <%= @toilet.title %></h3>
+	<h3>  <%= @toilet.title %> <br>
+		<small><%= @toilet.description %></small> 
+	</h3>
+	<h4>
+		<small><span class="glyphicon glyphicon-map-marker"></span> <%= @toilet.location %><br>
+		<strong>Toilet Rating:</strong>
+		<%= render 'home/overall-rating', :toilet => @toilet %>
+		</small>
+	</h4>
 	<p>
-		<strong>Location:</strong>
-		<%= @toilet.location %>
+		<strong>Parentsroom:</strong>
+		<%= @toilet.parentsRoom %>
 		<br>
-		<strong>Description:</strong>
-		<%= @toilet.description %>
+		<strong>Gender neutral:</strong>
+		<%= @toilet.gender_neutral %>
+		<br>
+		<strong>Disabled opt:</strong>
+		<%= @toilet.disabled_opt %>
+		<br>
+		<strong>Female:</strong>
+		<%= @toilet.female %>
+		<br>
+		<strong>Male:</strong>
+		<%= @toilet.male %>
+		
 	</p>
 </div>
 <hr>

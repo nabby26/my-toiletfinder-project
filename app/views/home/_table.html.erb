@@ -2,7 +2,7 @@
 <table class="table table-hover">
 	<thead>
 		<tr>
-			<th>Description</th>
+			<th>Toilet location</th>
 			<th>Overall Rating</th>
 			<th colspan="2"></th>
 		</tr>
@@ -18,31 +18,32 @@
 				<%= render 'home/overall-rating', :toilet => toilet %>
 			</td>
 			<td>
-				<!-- toggle to show description and some comments (limit 3)-->
-				<!-- have a view more comments options -->
-				<!-- logged in users can comment from toggle -->
 				<% toggle_data = "#"+toilet.id.to_s%>
 				<%= link_to 'View more', "#", class: "btn btn-default btn-sm", 
 				data: { toggle: toggle_data} %>	
 
 			</td>
 			<td>
-				<!-- toggle to show description and some comments (limit 3)-->
-				<!-- have a view more comments options -->
-				<!-- logged in users can comment from toggle -->
 				<%= link_to 'View comments', 
-					toilet_path(toilet), 
-					class: "btn btn-primary btn-sm"
-				%>
+				toilet_path(toilet), 
+				class: "btn btn-primary btn-sm"
+					%>
 
-			</td>
-		</tr>
-		<tr id=<%= toilet.id %> class="toilet-info">
-			<td  colspan="4">
-				<%= toilet.title %>
-				<%= toilet.description %>
-			</td>
-		</tr>
+				</td>
+			</tr>
+			<tr id=<%= toilet.id %> class="toilet-info">
+				<td  colspan="4">
+					<h5>
+						<%= toilet.title %> <br> 
+						<small>
+							Description: <%= toilet.description %><br>
+							<strong>Parentsroom:</strong> <%= toilet.parentsRoom %> <br>
+							<strong>Gender neutral:</strong> <%= toilet.gender_neutral %> <br>
+							<strong>Disabled opt:</strong> <%= toilet.disabled_opt %>
+						</small> 
+					</h5>
+				</td>
+			</tr>
 <!-- 		<tr id=<%= "comments_"+toilet.id.to_s %> class="toilet-info">
 			<td  colspan="4">
 				COMMENTS SECTION
