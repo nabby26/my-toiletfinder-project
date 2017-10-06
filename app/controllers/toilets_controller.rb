@@ -12,17 +12,10 @@ class ToiletsController < ApplicationController
   # GET /toilets/1
   # GET /toilets/1.json
   def show
-    public_toilet = params[:public_toilet]
-    id = params[:id]
-    if public_toilet == true
-      @toilet = Toilet.new.get_public_toilet id
-    else
-      @toilet = Toilet.find id
-    end
-    @feedbacks = Feedback.find_toilet_feedback id
-    return @feedbacks, @toilet
+    @toilet = Toilet.new.get_toilet params[:id]
+    @feedbacks = Feedback.find_toilet_feedback params[:id]
   end
- 
+
   # GET /toilets/new
   def new
     @toilet = Toilet.new

@@ -9,7 +9,7 @@
 	<div class="row col-xs-8 col-md-offset-2">
 		<h3 class="center">Toilet facilities</h3>
 		<%= render 'home/table' %>
-		<% if @toilets.none?%>
+		<% if @toilets.none? && @public_data_toilets.none?%>
 			<p>No toilets found.</p>
 		<% end %>
 	</div>

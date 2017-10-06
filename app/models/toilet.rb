@@ -152,18 +152,20 @@ class Toilet < ApplicationRecord
 
     # [START toilet_from_big_query]
     # ...
-    def get_public_toilet id
+    def get_toilet id
         bigquery = Google::Cloud::Bigquery.new project: "my-toiletfinder-project"
         # [END build_service]
 
         # [START run_query]
         sql = "SELECT * FROM `my-toiletfinder-project.Toilet.PublicToilets`" + 
-                "WHERE id = "+ id.to_s
-        result = bigquery.query sql
+                "WHERE id = (@id)"
+        result = bigquery.query sql, params: { id: id }
 
-        toilets = result.map {|entity| Toilet.create_hash entity }
-        # [END run_query]
-        return toilets
+        if result.none?
+            Toilet.find id
+        else
+            Toilet.create_hash result.first if result.any?
+        end
     end
     # [END toilet_from_big_query]
 

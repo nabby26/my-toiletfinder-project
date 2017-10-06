@@ -12,6 +12,9 @@
 		<% @toilets.each do |toilet| %>
 			<%= render 'home/populate_table', :toilet => toilet %>
 		<% end %>
+		<% @public_data_toilets.each do |toilet| %>
+			<%= render 'home/populate_table', :toilet => toilet %>
+		<% end %>
 
 		<% if @cursor %>
 		<nav>
