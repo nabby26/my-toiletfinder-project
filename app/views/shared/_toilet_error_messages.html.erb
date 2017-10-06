@@ -1,0 +1,11 @@
+  <% if @toilet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@toilet.errors.count, "error") %> prohibited this toilet from being saved:</h2>
+
+      <ul>
+      <% @toilet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>

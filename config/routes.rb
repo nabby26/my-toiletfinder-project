@@ -1,9 +1,22 @@
 Rails.application.routes.draw do
-  resources :toilets
-  get 'home/index'
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root 'home#index'
+	root 'home#index'
+	get  '/about',    to: 'home#about'
+	
+	get  '/signup',  to: 'users#new'
+	post '/signup',  to: 'users#create'
+	get  '/user_settings',	to: 'users#settings'
 
-  resources :toilets
+	get    '/login',   to: 'sessions#new'
+  	post   '/login',   to: 'sessions#create'
+  	delete '/logout',  to: 'sessions#destroy'
+
+  	get		'/toilets', to: 'toilets#index'
+
+  	get 	'/feedback', to: 'feedbacks#new'
+  	post 	'/feedback', to: 'feedbacks#create'
+
+	resources :toilets
+	resources :users
+	resources :feedbacks
 end

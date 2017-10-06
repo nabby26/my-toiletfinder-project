@@ -1,15 +1,17 @@
 require "google/cloud/datastore"
 require 'carrierwave/orm/activerecord'
+require "google/cloud/bigquery"
 class Toilet < ApplicationRecord
-    attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt, :image
+    attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt, :image,:female, :male, :lon, :lat, :public_toilet
     
     mount_uploaders :image, PhotoUploader
+    
     # Return a Google::Cloud::Datastore::Dataset for the configured dataset.
     # The dataset is used to create, read, update, and delete entity objects.
     def self.dataset
         @dataset ||= Google::Cloud::Datastore.new(
             project: Rails.application.config.database_configuration[Rails.env]["dataset_id"]
-        )
+            )
     end
 
     # [START query]
@@ -54,40 +56,46 @@ class Toilet < ApplicationRecord
     end
     # [END find]
 
-    # [START validations]
-    # Add Active Model validation support to Book class.
-    include ActiveModel::Validations
-  
-    validates :title, presence: true
-    validates :location, presence: true
-    # [END validations]
+
+    # Add Active Model support.
+    # Provides constructor that takes a Hash of attribute values.
+    include ActiveModel::Model
+
+    validates :title,  presence: true, length: { maximum: 50 }
+    validates :location,  presence: true, length: { maximum: 50 }
+    validates :description, length: { maximum: 100 }
 
     # [START save]
     # Save the Toilet to Datastore.
     # @return true if valid and saved successfully, otherwise false.
     def save
-    if valid?
-        entity = to_entity
-        Toilet.dataset.save entity
-        self.id = entity.key.id
-        true
-    else
-        false
-    end
+        if valid?
+            entity = to_entity
+            Toilet.dataset.save entity
+            self.id = entity.key.id
+            true
+        else
+            false
+        end
     end
     # [END save]
 
     # [START to_entity]
     # ...
     def to_entity
-        entity                 = Google::Cloud::Datastore::Entity.new
-        entity.key             = Google::Cloud::Datastore::Key.new "Toilet", id
-        entity["title"]        = title
-        entity["location"]       = location
+        entity                      = Google::Cloud::Datastore::Entity.new
+        entity.key                  = Google::Cloud::Datastore::Key.new "Toilet", id
+        entity["title"]             = title
+        entity["location"]          = location
         entity["description"]       = description
         entity["parentsRoom"]       = parentsRoom == "1" ? true : false
-        entity["gender_neutral"]       = gender_neutral == "1" ? true : false
-        entity["disabled_opt"]       = disabled_opt == "1" ? true : false
+        entity["gender_neutral"]    = gender_neutral == "1" ? true : false
+        entity["disabled_opt"]      = disabled_opt == "1" ? true : false
+        entity["female"]            = female == "1" ? true : false
+        entity["male"]              = male == "1" ? true : false
+        entity["lon"]               = lon if lon
+        entity["lat"]               = lat if lat
+        entity["public_toilet"]     = public_toilet if public_toilet
         entity
     end
     # [END to_entity]
@@ -113,5 +121,23 @@ class Toilet < ApplicationRecord
   def persisted?
     id.present?
   end   
+
+    # BIG QUERY DATA
+
+    # [START toilet_from_big_query]
+    # ...
+    def get_public_toilets
+        bigquery = Google::Cloud::Bigquery.new project: "my-toiletfinder-project"
+        # [END build_service]
+
+        # [START run_query]
+        sql = "SELECT *" +
+                "FROM [my-toiletfinder-project:Toilet.PublicToilets]"
+        results = bigquery.query sql
+        # [END run_query]
+        return results
+    end
+    # [END toilet_from_big_query]
+
 
 end

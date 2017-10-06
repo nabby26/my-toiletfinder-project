@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171006061003) do
+ActiveRecord::Schema.define(version: 20171006081924) do
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.string   "comments"
+    t.integer  "overall"
+    t.integer  "cleanliness"
+    t.integer  "odour"
+    t.integer  "safety"
+    t.integer  "wait_time"
+    t.datetime "check_in"
+    t.integer  "user_id",     limit: 20
+    t.integer  "toilet_id",   limit: 20
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "toilets", force: :cascade do |t|
     t.string   "title"
@@ -22,6 +36,20 @@ ActiveRecord::Schema.define(version: 20171006061003) do
     t.boolean  "gender_neutral", default: false
     t.boolean  "disabled_opt",   default: false
     t.string   "image"
+    t.boolean  "female",         default: false
+    t.boolean  "male",           default: false
+    t.float    "lon"
+    t.float    "lat"
+    t.boolean  "public_data",    default: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "admin",      default: false
+    t.string   "password"
   end
 
 end

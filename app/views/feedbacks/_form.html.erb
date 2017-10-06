@@ -1,0 +1,21 @@
+
+	<%= form_for(@feedback) do |f| %>
+
+	<%= render 'shared/feedback_error_messages', object: @feedback %>
+
+	<%= f.label :comment %>
+	<%= f.text_area :comment, class: 'form-control' , "cols" => 6, "rows" => 3 %>
+
+	<%= f.label :cleanliness %>
+	<%= f.select :cleanliness, [1, 2, 3, 4, 5],  class: 'form-control'  %>
+
+	<%= f.label :odour %>
+	<%= f.select :odour, [1, 2, 3, 4, 5],  class: 'form-control'  %>
+
+	<%= f.label :safety %>
+	<%= f.select :safety, [1, 2, 3, 4, 5],  class: 'form-control'  %>
+
+	<%= f.hidden_field :toilet_id, :value => @toilet.id %>
+	<%= f.submit yield(:button_text), class: "btn btn-primary" %>
+
+	<% end %>
