@@ -1,8 +1,0 @@
---no-private
---title=Google Cloud Datastore
---exclude lib/google/datastore/v1
---markup markdown
-
-./lib/**/*.rb
--
-README.md
