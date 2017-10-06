@@ -14,7 +14,8 @@ class PhotosController < ApplicationController
 
   # GET /photos/new
   def new
-    @photo = Photo.new
+    @feedback = Photo.new
+    @toilet = Toilet.find(params[:toilet])
   end
 
   # GET /photos/1/edit
@@ -24,12 +25,17 @@ class PhotosController < ApplicationController
   # POST /photos
   # POST /photos.json
   def create
-    @photo = Photo.new(photo_params)
+    @user_id = session[:user_id]
+    @toilet_id = params[:feedback][:toilet_id]
+    @toilet = Toilet.find(@toilet_id)
+    @photo = Photo.new(photo_params.merge(user_id: @user_id, toilet_id: @toilet_id))
+    # @photo = Photo.new(photo_params)
 
     respond_to do |format|
       if @photo.save
         format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
         format.json { render :show, status: :created, location: @photo }
+        redirect_to toilet_path(@toilet_id)
       else
         format.html { render :new }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
@@ -69,6 +75,6 @@ class PhotosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:caption, :photo_url, :user_id, :toilet_id)
+      params.require(:photo).permit(:caption, :photo_url)
     end
 end
