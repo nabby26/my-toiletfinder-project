@@ -27,12 +27,23 @@ class ToiletsController < ApplicationController
   # POST /toilets
   # POST /toilets.json
   def create
-
     @toilet = Toilet.new(toilet_params)
     
-
     respond_to do |format|
       if @toilet.save
+
+        ##Upload All photos to storage
+        storage = Google::Cloud::Storage.new(
+          project: "my-toiletfinder-project",
+          keyfile: "#{Rails.root}/credential/ToiletFinder-9ede96ffc554.json"
+        )
+        
+        bucket = storage.bucket "toilet-photos"
+    
+        params["toilet"]["image"].each do |image|
+          bucket.create_file image.tempfile.path, Time.now.getutc.to_s
+        end
+
         format.html { redirect_to @toilet, notice: 'Toilet was successfully created.' }
         format.json { render :show, status: :created, location: @toilet }
       else
