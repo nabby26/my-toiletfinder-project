@@ -31,7 +31,7 @@ class Feedback < ApplicationRecord
     end
 
 
-        # [START from_entity]
+    # [START from_entity]
     def self.create_hash entity
       feedback = Feedback.new
       # feedback.id = feedback.key.id
@@ -111,7 +111,7 @@ class Feedback < ApplicationRecord
     # validates :wait_time, numericality: { only_integer: true, less_than_or_equal_to: 30 }
     # validates :check_in
 
-      # Save the book to Datastore.
+  # Save the book to Datastore.
   # @return true if valid and saved successfully, otherwise false.
   def save
   	if valid?
