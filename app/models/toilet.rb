@@ -1,8 +1,7 @@
 require "google/cloud/datastore"
 require 'carrierwave/orm/activerecord'
 class Toilet < ApplicationRecord
-    attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt, :image_url, :toilet_photo
-    mount_uploader :image_url, PhotoUploader
+    attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt, :image_url
 
     # Return a Google::Cloud::Datastore::Dataset for the configured dataset.
     # The dataset is used to create, read, update, and delete entity objects.
@@ -107,40 +106,6 @@ class Toilet < ApplicationRecord
      Toilet.dataset.delete Google::Cloud::Datastore::Key.new "Toilet", id
     end
   # [END destroy]
-
-  after_commit :upload_image, if: :toilet_photo
-  def upload_image
-    image = StorageBucket.files.new(
-      key: "toilet_photo/#{id}/#{toilet_photo.original_filename}",
-      body: toilet_photo.read,
-      public: true
-    )
-  
-    image.save
-  
-    update_columns image_url: image.public_url
-  end
-
-  before_destroy :delete_image, if: :image_url
-  def delete_image
-    bucket_name = StorageBucket.key
-    image_uri   = URI.parse image_url
-  
-    if image_uri.host == "#{bucket_name}.storage.googleapis.com"
-      # Remove leading forward slash from image path
-      # The result will be the image key, eg. "cover_images/:id/:filename"
-      image_key = image_uri.path.sub("/", "")
-      image     = StorageBucket.files.new key: image_key
-  
-      image.destroy
-    end
-  end
-  
-  before_update :update_image, if: :toilet_photo
-  def update_image
-    delete_image if image_url?
-    upload_image
-  end
 
 ##################
 
