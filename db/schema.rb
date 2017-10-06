@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 20171006081924) do
     t.boolean  "parentsRoom",    default: false
     t.boolean  "gender_neutral", default: false
     t.boolean  "disabled_opt",   default: false
-    t.string   "image"
     t.boolean  "female",         default: false
     t.boolean  "male",           default: false
     t.float    "lon"
