@@ -1,0 +1,14 @@
+default: &default
+  cloud_storage:
+    bucket: toilet-photos
+    access_key_id: GOOGKAXF4Y7EKQ62P7LS
+    secret_access_key: a7ZssG9XdLbMWKIXdGxdEuM/e1yWtphO1ie3zrep
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+
+test:
+  <<: *default

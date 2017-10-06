@@ -20,7 +20,10 @@ development:
 test:
   <<: *default
   database: db/test.sqlite3
+  # Datastore
   dataset_id: my-toiletfinder-project
+  
+
 
 production:
   <<: *default
