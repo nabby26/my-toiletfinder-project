@@ -5,8 +5,14 @@ class ToiletsController < ApplicationController
 
   # GET /toilets
   # GET /toilets.json
+  PER_PAGE = 6
+
   def index
-    @toilets , @cursor = Toilet.query limit: 10, cursor: params[:cursor], cursor: params[:cursor]
+    @toilets, @next_cursor, @curr_cursor, @prev_cursor = Toilet.query(
+                                                                      limit: PER_PAGE, 
+                                                                      cursor: params[:cursor], 
+                                                                      prev_cursor: params[:prev_cursor]
+                                                                      )
   end
 
   # GET /toilets/1

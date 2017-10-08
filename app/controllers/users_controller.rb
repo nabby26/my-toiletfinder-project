@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
-  	@user = User.find params[:id]
+  	@user = User.find(session[:user_id])
   end 
 
   def settings 
@@ -17,13 +17,19 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new user_params
-    if @user.save
-      log_in @user
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to root_url
-    else
+    @check_user = User.find_by_email(params[:user][:email].downcase)
+    if @check_user
+      flash[:danger] = "An account already exsits with this email"
       render 'new'
-    end
+    else 
+      if @user.save
+        log_in @user
+        flash[:success] = "Welcome to the Sample App!"
+        redirect_to root_url
+      else
+        render 'new'
+      end
+    end 
   end
 
   def edit
@@ -41,7 +47,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find params[:id]
+    @user = User.find(session[:user_id])
+    log_out
     @user.destroy
     flash[:success] = "User deleted"
     redirect_to root_url

@@ -22,7 +22,18 @@ class Toilet < ApplicationRecord
     def self.query options = {}
         query = Google::Cloud::Datastore::Query.new
         query.kind "Toilet"
-        query.cursor options[:cursor] if options[:cursor]
+        query.limit options[:limit]   if options[:limit]
+        if options[:cursor]
+            query.cursor options[:cursor] 
+            curr_cursor = options[:cursor] 
+        end
+
+        if !options[:cursor]
+            prev_cursor = nil
+        end
+        if options[:prev_cursor]
+            prev_cursor = options[:prev_cursor]
+        end 
 
         results = dataset.run query
         toilets   = results.map {|entity| Toilet.from_entity entity }
@@ -31,9 +42,19 @@ class Toilet < ApplicationRecord
             next_cursor = results.cursor
         end
 
-        return toilets, next_cursor
+        return toilets, next_cursor, curr_cursor, prev_cursor
     end
     # [END query]
+
+    # def self.all
+    #     query = Google::Cloud::Datastore::Query.new
+    #     query.kind "Toilet"
+
+    #     results = dataset.run query
+    #     toilets   = results.map {|entity| Toilet.from_entity entity }
+
+    #     return toilets
+    # end 
 
     # [START from_entity]
     def self.from_entity entity
@@ -137,7 +158,8 @@ class Toilet < ApplicationRecord
     # [START toilet_from_big_query]
     # ...
     def get_public_toilets
-        bigquery = Google::Cloud::Bigquery.new project: "my-toiletfinder-project"
+        bigquery = Google::Cloud::Bigquery.new project: 
+                                Rails.application.config.database_configuration[Rails.env]["dataset_id"]
         # [END build_service]
 
         # [START run_query]

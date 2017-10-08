@@ -103,8 +103,6 @@ Comments section
 
 </p>
 
-<%= link_to 'Edit', edit_toilet_path(@toilet) %> |
-<%= link_to 'Back', toilets_path %>
 <br>
 <% if session[:user_id] != nil %>
 <% if User.find(session[:user_id]).admin == true %>
