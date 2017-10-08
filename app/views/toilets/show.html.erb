@@ -100,8 +100,17 @@ Comments section
   <% @toilet.image.each do |image| %>
     <li><%= link_to(image_tag(image.url, alt: 'Image'), image.url, target: '_blank') %></li>
   <% end %>
-
 </p>
+
+<div class="center">
+	<% if session[:user_id] != nil %>
+		<% if User.find(session[:user_id]).admin != true %>
+			<%= link_to new_photo_path(:toilet => @toilet.id), class: "btn btn-success btn-sm" do%>
+				<span class="glyphicon glyphicon-plus"></span> Add Photo
+			<%end%>
+		<%end%>
+	<%end%>
+</div>
 
 <%= link_to 'Edit', edit_toilet_path(@toilet) %> |
 <%= link_to 'Back', toilets_path %>

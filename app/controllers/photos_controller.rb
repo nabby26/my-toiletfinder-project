@@ -15,7 +15,7 @@ class PhotosController < ApplicationController
   # GET /photos/new
   def new
     @photo = Photo.new
-    # @toilet = Toilet.find(params[:toilet])
+    @toilet = Toilet.find(params[:toilet])
   end
 
   # GET /photos/1/edit
@@ -29,7 +29,6 @@ class PhotosController < ApplicationController
     @toilet_id = params[:photo][:toilet_id]
     @toilet = Toilet.find(@toilet_id)
     @photo = Photo.new(photo_params.merge(user_id: @user_id, toilet_id: @toilet_id))
-    # @photo = Photo.new(photo_params)
 
     respond_to do |format|
       if @photo.save
