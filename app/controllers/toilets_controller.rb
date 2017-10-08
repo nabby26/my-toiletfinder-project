@@ -1,20 +1,27 @@
+require "google/cloud/storage"
 class ToiletsController < ApplicationController
   before_action :set_toilet, only: [:show, :edit, :update, :destroy]
   #before_action :admin_user, only: [:index, :show, :edit, :update, :destroy]
 
   # GET /toilets
   # GET /toilets.json
+  PER_PAGE = 6
+
   def index
-    @toilets , @cursor = Toilet.query limit: 10, cursor: params[:cursor], cursor: params[:cursor]
+    @toilets, @next_cursor, @curr_cursor, @prev_cursor = Toilet.query(
+                                                                      limit: PER_PAGE, 
+                                                                      cursor: params[:cursor], 
+                                                                      prev_cursor: params[:prev_cursor]
+                                                                      )
   end
 
   # GET /toilets/1
   # GET /toilets/1.json
   def show
-    @toilet = Toilet.find params[:id]
+    @toilet = Toilet.new.get_toilet params[:id]
     @feedbacks = Feedback.find_toilet_feedback params[:id]
   end
- 
+
   # GET /toilets/new
   def new
     @toilet = Toilet.new
@@ -22,15 +29,29 @@ class ToiletsController < ApplicationController
 
   # GET /toilets/1/edit
   def edit
+    @toilet = Toilet.find params[:id]
   end
 
   # POST /toilets
   # POST /toilets.json
   def create
     @toilet = Toilet.new(toilet_params)
-
+    
     respond_to do |format|
       if @toilet.save
+
+        ##Upload All photos to storage
+        storage = Google::Cloud::Storage.new(
+          project: "my-toiletfinder-project",
+          keyfile: "#{Rails.root}/credential/ToiletFinder-9ede96ffc554.json"
+        )
+        
+        bucket = storage.bucket "toilet-photos"
+    
+        params["toilet"]["image"].each do |image|
+          bucket.create_file image.tempfile.path, Time.now.getutc.to_s
+        end
+
         format.html { redirect_to @toilet, notice: 'Toilet was successfully created.' }
         format.json { render :show, status: :created, location: @toilet }
       else

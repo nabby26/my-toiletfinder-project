@@ -20,35 +20,47 @@
 
     <tbody>
       <% @toilets.each do |toilet| %>
-        <tr>
-          <td><%= toilet.title %></td>
-          <td><%= toilet.location %></td>
-          <td><%= toilet.description %></td>
-          <td><%= toilet.parentsRoom %></td>
-          <td><%= toilet.gender_neutral %></td>
-          <td><%= toilet.female %></td>
-          <td><%= toilet.male %></td>
-          <td><%= toilet.disabled_opt %></td>
-          <td><%= link_to 'Show', toilet_path(toilet), class: "btn btn-default btn-sm"%></td>
-          <td><%= link_to edit_toilet_path(toilet), class: "btn btn-primary btn-sm" do%>
-            <span class="glyphicon glyphicon-pencil"></span> Edit
-            <%end%>
-          </td>
-          <td>
-            <%= link_to toilet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" do%>
-            <span class="glyphicon glyphicon-remove"></span> Delete
-            <%end%>
-          </td>
-        </tr>
+      <tr>
+        <td><%= toilet.title %></td>
+        <td><%= toilet.location %></td>
+        <td><%= toilet.description %></td>
+        <td><%= toilet.parentsRoom %></td>
+        <td><%= toilet.gender_neutral %></td>
+        <td><%= toilet.female %></td>
+        <td><%= toilet.male %></td>
+        <td><%= toilet.disabled_opt %></td>
+        <td><%= link_to 'Show', toilet_path(toilet), class: "btn btn-default btn-sm"%></td>
+        <td><%= link_to edit_toilet_path(toilet), class: "btn btn-primary btn-sm" do%>
+          <span class="glyphicon glyphicon-pencil"></span> Edit
+          <%end%>
+        </td>
+        <td>
+          <%= link_to toilet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" do%>
+          <span class="glyphicon glyphicon-remove"></span> Delete
+          <%end%>
+        </td>
+      </tr>
       <% end %>
     </tbody>
   </table>
+
+  <ul class="pager">
+  <% if @prev_cursor == nil || @prev_cursor%>
+    <li><%= link_to "< back", toilets_path(cursor: @prev_cursor) %></li> 
+  <% end %>
+  <% if @next_cursor %>
+      <li><%= link_to "next >", toilets_path(cursor: @next_cursor, prev_cursor: @curr_cursor) %></li> 
+  <% end %>
+  </ul>
 
   <br>
 
   <%= link_to new_toilet_path, class: "btn btn-success" do%>
   <span class="glyphicon glyphicon-plus"></span> Create New Toilet
   <%end%>
+
 <%else%>
-<h3 class="center">Page not available</h3>
+  <h3 class="center">Page not available</h3>
 <%end%>
+
+

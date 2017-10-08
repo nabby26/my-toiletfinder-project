@@ -25,5 +25,8 @@
     <%= f.label :disabled_opt  , {class: "checkbox inline"}  %>
     <%= f.check_box :disabled_opt, class: 'form-control'%>
 
+    <%= f.label :image %>
+    <%= f.file_field :image, multiple: true %>
+
     <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>

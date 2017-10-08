@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20171006081924) do
     t.boolean  "male",           default: false
     t.float    "lon"
     t.float    "lat"
+    t.string   "image"
     t.boolean  "public_data",    default: false
   end
 

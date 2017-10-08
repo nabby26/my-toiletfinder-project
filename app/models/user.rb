@@ -36,7 +36,7 @@ class User < ApplicationRecord
   def self.find_by_email email
     query = Google::Cloud::Datastore::Query.new
     query.kind("User").
-      where("email", "=", "admin@gmail.com")
+      where("email", "=", email)
 
     result = dataset.run query
     from_entity result.first if result.any?

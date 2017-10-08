@@ -15,6 +15,7 @@ gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
+gem 'gmaps4rails'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -27,9 +28,16 @@ gem 'wdm', '>= 0.1.0' if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Use Fog
+gem "fog-google"
+gem "google-api-client"
+gem "mime-types"
+
 # Use Google cloud
 gem 'google-cloud-datastore', require: 'google/cloud/datastore'
 
+# Use Google Cloud Storage
+gem 'google-cloud-storage'
 #Use Big query
 gem "google-cloud-bigquery", require: 'google/cloud/bigquery'
 
@@ -53,4 +61,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Added at 2017-09-21 01:06:11 +1000 by olddata:
 gem "appengine", "~> 0.4.2"
 
+# Add Carrierwave for Google Storage
+gem 'carrierwave'
 gem "rails-controller-testing"

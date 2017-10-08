@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 	
 	get  '/signup',  to: 'users#new'
 	post '/signup',  to: 'users#create'
-	get  '/user_settings',	to: 'users#settings'
+	get  '/profile', to: 'users#show'
+	get  '/settings',	to: 'users#settings'
+	delete '/delete_account', to: 'users#destroy'
 
 	get    '/login',   to: 'sessions#new'
   	post   '/login',   to: 'sessions#create'

@@ -96,6 +96,13 @@ Comments section
 	<%end%>
 </div>
 
+<p>
+  <% @toilet.image.each do |image| %>
+    <li><%= link_to(image_tag(image.url, alt: 'Image'), image.url, target: '_blank') %></li>
+  <% end %>
+
+</p>
+
 <br>
 <% if session[:user_id] != nil %>
 <% if User.find(session[:user_id]).admin == true %>

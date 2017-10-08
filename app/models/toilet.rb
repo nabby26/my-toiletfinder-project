@@ -1,9 +1,11 @@
 require "google/cloud/datastore"
+require 'carrierwave/orm/activerecord'
 require "google/cloud/bigquery"
 class Toilet < ApplicationRecord
-    attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, 
-    :disabled_opt, :female, :male, :lon, :lat, :public_toilet
-
+    attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt, :image,:female, :male, :lon, :lat, :public_toilet
+    
+    mount_uploaders :image, PhotoUploader
+    
     # Return a Google::Cloud::Datastore::Dataset for the configured dataset.
     # The dataset is used to create, read, update, and delete entity objects.
     def self.dataset
@@ -20,7 +22,18 @@ class Toilet < ApplicationRecord
     def self.query options = {}
         query = Google::Cloud::Datastore::Query.new
         query.kind "Toilet"
-        query.cursor options[:cursor] if options[:cursor]
+        query.limit options[:limit]   if options[:limit]
+        if options[:cursor]
+            query.cursor options[:cursor] 
+            curr_cursor = options[:cursor] 
+        end
+
+        if !options[:cursor]
+            prev_cursor = nil
+        end
+        if options[:prev_cursor]
+            prev_cursor = options[:prev_cursor]
+        end 
 
         results = dataset.run query
         toilets   = results.map {|entity| Toilet.from_entity entity }
@@ -29,9 +42,19 @@ class Toilet < ApplicationRecord
             next_cursor = results.cursor
         end
 
-        return toilets, next_cursor
+        return toilets, next_cursor, curr_cursor, prev_cursor
     end
     # [END query]
+
+    # def self.all
+    #     query = Google::Cloud::Datastore::Query.new
+    #     query.kind "Toilet"
+
+    #     results = dataset.run query
+    #     toilets   = results.map {|entity| Toilet.from_entity entity }
+
+    #     return toilets
+    # end 
 
     # [START from_entity]
     def self.from_entity entity
@@ -98,21 +121,73 @@ class Toilet < ApplicationRecord
     end
     # [END to_entity]
 
+    # [START update]
+    # Set attribute values from provided Hash and save to Datastore.
+    def update attributes
+        attributes.each do |name, value|
+            send "#{name}=", value if respond_to? "#{name}="
+        end
+        save
+    end
+    # [END update]
+
+   # [START destroy]
+    def destroy
+     Toilet.dataset.delete Google::Cloud::Datastore::Key.new "Toilet", id
+    end
+  # [END destroy]
+
+##################
+
+  def persisted?
+    id.present?
+  end   
 
     # BIG QUERY DATA
+
+    # [START from_entity]
+    def self.create_hash entity
+      toilet = Toilet.new
+      # feedback.id = feedback.key.id
+      entity.each do |name, value|
+        toilet.send "#{name}=", value if toilet.respond_to? "#{name}="
+      end
+      toilet
+    end
 
     # [START toilet_from_big_query]
     # ...
     def get_public_toilets
+        bigquery = Google::Cloud::Bigquery.new project: 
+                                Rails.application.config.database_configuration[Rails.env]["dataset_id"]
+        # [END build_service]
+
+        # [START run_query]
+        sql = "SELECT * FROM `my-toiletfinder-project.Toilet.PublicToilets`"
+        result = bigquery.query sql
+
+        toilets = result.map {|entity| Toilet.create_hash entity }
+        # [END run_query]
+        return toilets
+    end
+    # [END toilet_from_big_query]
+
+    # [START toilet_from_big_query]
+    # ...
+    def get_toilet id
         bigquery = Google::Cloud::Bigquery.new project: "my-toiletfinder-project"
         # [END build_service]
 
         # [START run_query]
-        sql = "SELECT *" +
-                "FROM [my-toiletfinder-project:Toilet.PublicToilets]"
-        results = bigquery.query sql
-        # [END run_query]
-        return results
+        sql = "SELECT * FROM `my-toiletfinder-project.Toilet.PublicToilets`" + 
+                "WHERE id = (@id)"
+        result = bigquery.query sql, params: { id: id }
+
+        if result.none?
+            Toilet.find id
+        else
+            Toilet.create_hash result.first if result.any?
+        end
     end
     # [END toilet_from_big_query]
 

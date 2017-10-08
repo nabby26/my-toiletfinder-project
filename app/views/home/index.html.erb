@@ -1,6 +1,10 @@
 <div class="container">
 	<div class="row">
-		<!-- map -->
+		<!-- [START] map -->
+  			<div id="map" style='height: 400px;'></div>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkRxr1XQJBEn2EPridAv5pB0BiW_6el2g&callback=initMap" type="text/javascript"></script>
+		<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+		<!-- [END] map -->
 	</div>
 </div>
 
@@ -9,7 +13,7 @@
 	<div class="row col-xs-8 col-md-offset-2">
 		<h3 class="center">Toilet facilities</h3>
 		<%= render 'home/table' %>
-		<% if @toilets.none? %>
+		<% if @toilets.none? && @public_data_toilets.none?%>
 			<p>No toilets found.</p>
 		<% end %>
 	</div>
