@@ -14,6 +14,7 @@ class ToiletsController < ApplicationController
   def show
     @toilet = Toilet.find params[:id]
     @feedbacks = Feedback.find_toilet_feedback params[:id]
+    @photos = Photo.find_toilet_photo params[:id]
   end
  
   # GET /toilets/new

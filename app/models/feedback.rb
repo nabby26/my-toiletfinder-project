@@ -39,6 +39,7 @@ class Feedback < ApplicationRecord
         feedback.send "#{name}=", value if feedback.respond_to? "#{name}="
       end
       feedback
+      
     end
   # [END from_entity]
 

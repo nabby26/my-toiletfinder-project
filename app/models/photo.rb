@@ -36,22 +36,23 @@ class Photo < ApplicationRecord
     def self.create_hash entity
       photo = Photo.new
       entity.properties.to_hash.each do |name, value|
-        feedback.send "#{name}=", value if feedback.respond_to? "#{name}="
+        photo.send "#{name}=", value if photo.respond_to? "#{name}="
       end
-      feedback
+      photo
+      
     end
   # [END create_hash]
 
     # [START find]
     # Lookup Photo by toilet ID.  Returns Toilet or nil.
-    def self.find_toilet_Photo toilet_id
+    def self.find_toilet_photo toilet_id
      query = Google::Cloud::Datastore::Query.new
      query.kind("Photo").
      where("toilet_id", "=", toilet_id.to_s)
 
      result = dataset.run query
-     feedback = result.map {|entity| Feedback.create_hash entity }
-     return feedback
+     photo = result.map {|entity| Photo.create_hash entity } 
+     return photo
     end
    # [END find]
 
@@ -80,7 +81,9 @@ class Photo < ApplicationRecord
       )
       
       bucket = storage.bucket "toilet-photos"
-      file = bucket.create_file image.file.path, "#{toilet_id}/#{user_id}/#{id}"
+      file = bucket.create_file image.file.path,
+       "#{toilet_id}/#{user_id}/#{id}",
+       acl: `public`
       @file_url = file.public_url
 
   end
@@ -91,7 +94,7 @@ class Photo < ApplicationRecord
     if valid?
         #Upload photos here ..
         upload_file photo_url
-        
+
         entity = to_entity
         Photo.dataset.save entity
         self.id = entity.key.id

@@ -96,8 +96,15 @@ Comments section
 	<%end%>
 </div>
 
-<p>
-</p>
+<div class="list-group">
+	<% if @photos.none? %>
+		<div class="center">No Photos available</div>
+	<% else %>
+		<% @photos.each do |photo| %>
+			<img src="<%= photo.photo_url %>">
+		<%end%>
+	<%end%>
+</div>
 
 <div class="center">
 	<% if session[:user_id] != nil %>
