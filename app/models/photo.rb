@@ -1,6 +1,6 @@
-
+require 'active_support/core_ext/time/conversions'
 class Photo < ApplicationRecord
-    attr_accessor :id, :caption, :photo_url, :user_id, :toilet_id, :created_at
+    attr_accessor :id, :caption, :photo_url, :user_id, :toilet_id, :created_at, :storage_url
 
     mount_uploader :photo_url, PhotoUploader
 
@@ -65,6 +65,7 @@ class Photo < ApplicationRecord
         entity["user_id"]      = user_id
         entity["toilet_id"]    = toilet_id
         entity["created_at"]  = created_at
+        entity["storage_url"] = @file_url
         entity
     end
   # [END to_entity]
@@ -82,7 +83,7 @@ class Photo < ApplicationRecord
       
       bucket = storage.bucket "toilet-photos"
       file = bucket.create_file image.file.path,
-       "#{toilet_id}/#{user_id}/#{Time.now.getutc.to_s}.png",
+       "#{toilet_id}/#{user_id}/#{Time.now.to_formatted_s(:number)}",
        acl: `public`
       @file_url = file.public_url
 
