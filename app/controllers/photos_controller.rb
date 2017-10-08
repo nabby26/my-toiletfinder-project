@@ -14,8 +14,8 @@ class PhotosController < ApplicationController
 
   # GET /photos/new
   def new
-    @feedback = Photo.new
-    @toilet = Toilet.find(params[:toilet])
+    @photo = Photo.new
+    # @toilet = Toilet.find(params[:toilet])
   end
 
   # GET /photos/1/edit
@@ -26,15 +26,14 @@ class PhotosController < ApplicationController
   # POST /photos.json
   def create
     @user_id = session[:user_id]
-    @toilet_id = params[:feedback][:toilet_id]
+    @toilet_id = params[:photo][:toilet_id]
     @toilet = Toilet.find(@toilet_id)
     @photo = Photo.new(photo_params.merge(user_id: @user_id, toilet_id: @toilet_id))
     # @photo = Photo.new(photo_params)
 
     respond_to do |format|
       if @photo.save
-        format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
-        format.json { render :show, status: :created, location: @photo }
+        flash[:success] = "Photo was successfully uploaded."
         redirect_to toilet_path(@toilet_id)
       else
         format.html { render :new }
