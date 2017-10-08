@@ -31,7 +31,6 @@ class PhotosController < ApplicationController
     @photo = Photo.new(photo_params.merge(user_id: @user_id, toilet_id: @toilet_id))
 
     if @photo.save
-      upload_photo params["photo"]["photo_url"]
       flash[:success] = "Photo was successfully uploaded."
       redirect_to toilet_path(@toilet_id)
     else
@@ -61,17 +60,6 @@ class PhotosController < ApplicationController
       format.html { redirect_to photos_url, notice: 'Photo was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
-
-  def upload_photo image
-    ##Upload photo to storage
-    storage = Google::Cloud::Storage.new(
-      project: "my-toiletfinder-project",
-      keyfile: "#{Rails.root}/credential/ToiletFinder-9ede96ffc554.json"
-    )
-    
-    bucket = storage.bucket "toilet-photos"
-    bucket.create_file image.tempfile.path, "#{@toilet_id}/#{@user_id}/#{@photo.id}"
   end
 
   private

@@ -1,3 +1,4 @@
+
 class Photo < ApplicationRecord
     attr_accessor :id, :caption, :photo_url, :user_id, :toilet_id, :created_at
 
@@ -59,7 +60,7 @@ class Photo < ApplicationRecord
         entity                 = Google::Cloud::Datastore::Entity.new
         entity.key             = Google::Cloud::Datastore::Key.new "Photo", id
         entity["caption"]      = caption
-        # entity["photo_url"]      = photo_url 
+        entity["photo_url"]      = @file_url 
         entity["user_id"]      = user_id
         entity["toilet_id"]    = toilet_id
         entity["created_at"]  = created_at
@@ -70,10 +71,27 @@ class Photo < ApplicationRecord
   include ActiveModel::Validations
   ## Validation goes here ...
 
+
+  # Upload Photo Here
+  def upload_file image 
+    storage = Google::Cloud::Storage.new(
+        project: "my-toiletfinder-project",
+        keyfile: "#{Rails.root}/credential/ToiletFinder-9ede96ffc554.json"
+      )
+      
+      bucket = storage.bucket "toilet-photos"
+      file = bucket.create_file image.file.path, "#{toilet_id}/#{user_id}/#{id}"
+      @file_url = file.public_url
+
+  end
+
   # Save the Photo to Datastore.
   # @return true if valid and saved successfully, otherwise false.
   def save
     if valid?
+        #Upload photos here ..
+        upload_file photo_url
+        
         entity = to_entity
         Photo.dataset.save entity
         self.id = entity.key.id
