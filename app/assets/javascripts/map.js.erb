@@ -6,10 +6,19 @@ initMap = function() {
     center: mel_cbd
   });
 
+  var infoWin = new google.maps.InfoWindow();
   var markers = locations.map(function(location, i) {
-    return new google.maps.Marker({
+    var marker = new google.maps.Marker({
       position: location
     });
+    google.maps.event.addListener(marker, 'click', function(evt) {
+      infoWin.setContent(location.info);
+      infoWin.open(map, marker);
+    })
+    return marker;
+    // return new google.maps.Marker({
+    //   position: location
+    // });
   }); 
 
   // Add a marker clusterer to manage the markers.
@@ -20,6 +29,18 @@ initMap = function() {
  <% toilets = Toilet.new.get_public_toilets %>
   var locations = [
   					<% toilets.each do |toilet| %>
-  					{lat:  <%= toilet.lat %>, lng:  <%= toilet.lon %>}, 
+            <%
+              title = toilet.title.gsub(/"/,"'")
+              content = "<h5> #{title} <br><small>"+
+                        "<strong>Parentsroom:</strong> #{toilet.parentsRoom}"+
+                        "<br><strong>Female:</strong> #{toilet.female}"+
+                        "<br><strong>Male:</strong> #{toilet.male}"+
+                        "<br><strong>Disabled opt:</strong> #{toilet.disabled_opt}</small></h5>"
+            %>
+  					{  
+              lat:  <%= toilet.lat %>, 
+              lng:  <%= toilet.lon %>, 
+              info: "<%=content %>"
+            }, 
  					<% end %>
  					]; 
