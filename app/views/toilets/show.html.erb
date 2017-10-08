@@ -89,7 +89,7 @@ Comments section
 <div class="center">
 	<% if session[:user_id] != nil %>
 	<% if User.find(session[:user_id]).admin != true %>
-	<%= link_to feedback_path(:toilet => @toilet.id), class: "btn btn-success btn-sm" do%>
+	<%= link_to feedback_path(:id => @toilet.id), class: "btn btn-success btn-sm" do%>
 	<span class="glyphicon glyphicon-plus"></span> Add Comment
 	<%end%>
 	<%end%>

@@ -77,7 +77,6 @@ class Toilet < ApplicationRecord
     end
     # [END find]
 
-
     # Add Active Model support.
     # Provides constructor that takes a Hash of attribute values.
     include ActiveModel::Model

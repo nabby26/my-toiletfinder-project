@@ -2,7 +2,7 @@ class FeedbacksController < ApplicationController
 
   def new
     @feedback = Feedback.new
-    @toilet = Toilet.find(params[:toilet])
+    @toilet = Toilet.new.get_toilet params[:id]
   end
 
 
