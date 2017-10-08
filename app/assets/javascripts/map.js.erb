@@ -1,0 +1,31 @@
+initMap = function() {
+  var mel_cbd = {lat:-37.8136, lng: 144.9631};
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 14,
+    center: mel_cbd
+  });
+
+   
+
+  // var marker = new google.maps.Marker({
+  //   position: mel_cbd,
+  //   map: map
+  // });
+  var markers = locations.map(function(location, i) {
+    return new google.maps.Marker({
+      position: location
+    });
+  }); 
+
+  // Add a marker clusterer to manage the markers.
+  var markerCluster = new MarkerClusterer(map, markers,
+      {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+}
+
+ <% toilets = Toilet.new.get_public_toilets %>
+  var locations = [
+  					<% toilets.each do |toilet| %>
+  					{lat:  <%= toilet.lat %>, lng:  <%= toilet.lon %>}, 
+ 					<% end %>
+ 					]; 

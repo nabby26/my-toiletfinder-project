@@ -8,7 +8,9 @@
 		<%end%>
 	</td>
 	<td>
+		<!-- [START]	Display Overall rating -->
 		<%= render 'home/overall-rating', :toilet => toilet %>
+		<!-- [END]		Display Overall rating -->
 	</td>
 	<td>
 		<% toggle_data = "#"+toilet.id.to_s%>
@@ -23,8 +25,8 @@
 		class: "btn btn-primary btn-sm"
 			%>
 
-		</td>
-	</tr>
+	</td>
+</tr>
 	<tr id=<%= toilet.id %> class="toilet-info">
 		<td  colspan="4">
 			<h5>
@@ -40,8 +42,3 @@
 			</h5>
 		</td>
 	</tr>
-<!-- 		<tr id=<%= "comments_"+toilet.id.to_s %> class="toilet-info">
-			<td  colspan="4">
-				COMMENTS SECTION
-			</td>
-		</tr>	 -->
