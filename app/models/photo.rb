@@ -1,6 +1,8 @@
 class Photo < ApplicationRecord
     attr_accessor :id, :caption, :photo_url, :user_id, :toilet_id, :created_at
 
+    mount_uploader :photo_url, PhotoUploader
+
     # Return a Google::Cloud::Datastore::Dataset for the configured dataset.
 	# The dataset is used to create, read, update, and delete entity objects.
 	def self.dataset
@@ -57,7 +59,7 @@ class Photo < ApplicationRecord
         entity                 = Google::Cloud::Datastore::Entity.new
         entity.key             = Google::Cloud::Datastore::Key.new "Photo", id
         entity["caption"]      = caption
-        entity["photo_url"]      = photo_url 
+        # entity["photo_url"]      = photo_url 
         entity["user_id"]      = user_id
         entity["toilet_id"]    = toilet_id
         entity["created_at"]  = created_at
