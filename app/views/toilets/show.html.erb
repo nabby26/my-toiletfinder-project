@@ -101,7 +101,7 @@ Comments section
 		<div class="center">No Photos available</div>
 	<% else %>
 		<% @photos.each do |photo| %>
-			<img src="<%= photo.photo_url %>">
+			<img src="<%= photo.storage_url %>">
 		<%end%>
 	<%end%>
 </div>
