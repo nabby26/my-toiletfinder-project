@@ -82,7 +82,7 @@ class Photo < ApplicationRecord
       
       bucket = storage.bucket "toilet-photos"
       file = bucket.create_file image.file.path,
-       "#{toilet_id}/#{user_id}/#{id}",
+       "#{toilet_id}/#{user_id}/#{Time.now.getutc.to_s}.png",
        acl: `public`
       @file_url = file.public_url
 
