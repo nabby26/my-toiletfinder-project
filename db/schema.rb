@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171008150455) do
+ActiveRecord::Schema.define(version: 20171009075957) do
 
   create_table "feedbacks", force: :cascade do |t|
     t.string   "comments"
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 20171008150455) do
     t.integer  "toilet_id",   limit: 20
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "opening_hours", force: :cascade do |t|
+    t.string   "day"
+    t.integer  "open_time"
+    t.integer  "close_time"
+    t.string   "toilet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "photos", force: :cascade do |t|

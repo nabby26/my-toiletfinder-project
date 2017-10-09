@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day: MyString
+  open_time: 2017-10-09 18:59:58
+  close_time: 2017-10-09 18:59:58
+  toilet_id: MyString
+
+two:
+  day: MyString
+  open_time: 2017-10-09 18:59:58
+  close_time: 2017-10-09 18:59:58
+  toilet_id: MyString

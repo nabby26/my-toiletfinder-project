@@ -40,7 +40,8 @@ class ToiletsController < ApplicationController
     
     respond_to do |format|
       if @toilet.save
-
+        # Once toilets are created, create opening hours for all weekdays
+        set_up_opening_hours @toilet
         format.html { redirect_to @toilet, notice: 'Toilet was successfully created.' }
         format.json { render :show, status: :created, location: @toilet }
       else
@@ -67,6 +68,9 @@ class ToiletsController < ApplicationController
   # DELETE /toilets/1
   # DELETE /toilets/1.json
   def destroy
+    # Need to destroy all feedback associated
+    # destroy all photos
+    # destroy opening times
     @toilet.destroy
     respond_to do |format|
       format.html { redirect_to toilets_url, notice: 'Toilet was successfully destroyed.' }
@@ -89,8 +93,21 @@ class ToiletsController < ApplicationController
         :gender_neutral, :disabled_opt, :female, :male).merge(public_toilet: false)
     end
 
-    #Confirms admin user
-    # def admin_user
-    #   redirect_to(root_url) unless current_user.admin?
-    # end
+    def set_up_opening_hours toilet
+      @monday = OpeningHour.new(day: "Monday", open_time: nil, close_time: nil, toilet_id: toilet.id)
+      @tuesday = OpeningHour.new(day: "Tuesday", open_time: nil, close_time: nil, toilet_id: toilet.id)
+      @wednesday = OpeningHour.new(day: "Wednesday", open_time: nil, close_time: nil, toilet_id: toilet.id)
+      @thursday = OpeningHour.new(day: "Thursday", open_time: nil, close_time: nil, toilet_id: toilet.id)
+      @friday = OpeningHour.new(day: "Friday", open_time: nil, close_time: nil, toilet_id: toilet.id)
+      @saturday = OpeningHour.new(day: "Saturday", open_time: nil, close_time: nil, toilet_id: toilet.id)
+      @sunday = OpeningHour.new(day: "Sunday", open_time: nil, close_time: nil, toilet_id: toilet.id)
+      
+      @monday.save
+      @tuesday.save
+      @wednesday.save
+      @thursday.save
+      @friday.save
+      @saturday.save
+      @sunday.save
+    end 
 end

@@ -34,7 +34,7 @@ function initMap() {
 
  <% toilets = Toilet.new.get_public_toilets %>
   var locations = [
-  					<% toilets.each do |toilet| %>
+            <% toilets.each do |toilet| %>
             <%
               title = toilet.title.gsub(/"/,"'")
               content = "<h5> #{title} <br><small>"+
@@ -43,13 +43,13 @@ function initMap() {
                         "<br><strong>Male:</strong> #{toilet.male}"+
                         "<br><strong>Disabled opt:</strong> #{toilet.disabled_opt}</small></h5>"
             %>
-  					{  
+            {  
               lat:  <%= toilet.lat %>, 
               lng:  <%= toilet.lon %>, 
               info: "<%=content %>"
             }, 
- 					<% end %>
- 					]; 
+          <% end %>
+          ]; 
 
 function initAutocomplete() {
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -67,9 +67,6 @@ function initAutocomplete() {
         infoWin.open(map, marker);
     })
     return marker;
-    // return new google.maps.Marker({
-    //   position: location
-    // });
   }); 
 
   // Add a marker clusterer to manage the markers.
