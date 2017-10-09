@@ -1,8 +1,10 @@
+<%= javascript_include_tag 'map' %>
 <div class="container">
-	<div class="row">
+	<div class="row center">
 		<!-- [START] map -->
+		<input id="pac-input" class="controls center" type="text" placeholder="Search Location">
   		<div id="map" style='height: 400px;'></div>
-		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkRxr1XQJBEn2EPridAv5pB0BiW_6el2g&callback=initMap" type="text/javascript"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkRxr1XQJBEn2EPridAv5pB0BiW_6el2g&callback=initialiseMap&libraries=places" type="text/javascript"></script>
 		<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 		<!-- [END] map -->
 	</div>
@@ -10,8 +12,11 @@
 
 
 <div class="container">
-	<div class="row col-xs-8 col-md-offset-2">
-		<h3 class="center">Toilet facilities</h3>
+	<div class="row col-xs-10 col-md-offset-1">
+		<br>
+		<hr> 
+		<h1 class="center">Toilet facilities available</h1>
+		<br><br>
 		<%= render 'home/table' %>
 		<% if @toilets.none? && @public_data_toilets.none?%>
 			<p>No toilets found.</p>
