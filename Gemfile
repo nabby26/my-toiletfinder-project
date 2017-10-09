@@ -62,4 +62,8 @@ gem "appengine", "~> 0.4.2"
 
 # Add Carrierwave for Google Storage
 gem 'carrierwave'
+
+# add mini magick
+gem "mini_magick"
+
 gem "rails-controller-testing"
