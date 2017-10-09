@@ -4,8 +4,6 @@ require "google/cloud/bigquery"
 class Toilet < ApplicationRecord
     attr_accessor :id, :title, :location, :description, :parentsRoom, :gender_neutral, :disabled_opt, :image,:female, :male, :lon, :lat, :public_toilet
     
-    mount_uploaders :image, PhotoUploader
-    
     # Return a Google::Cloud::Datastore::Dataset for the configured dataset.
     # The dataset is used to create, read, update, and delete entity objects.
     def self.dataset

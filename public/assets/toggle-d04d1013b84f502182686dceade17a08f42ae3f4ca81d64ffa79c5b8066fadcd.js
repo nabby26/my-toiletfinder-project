@@ -1,0 +1,1 @@
+$("a[data-toggle]").on("click",function(t){t.preventDefault();var o=$(this).data("toggle");$(".toilet-info").hide(),$(o).show("slow")});

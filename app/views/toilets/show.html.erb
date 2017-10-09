@@ -96,12 +96,25 @@ Comments section
 	<%end%>
 </div>
 
-<p>
-  <% @toilet.image.each do |image| %>
-    <li><%= link_to(image_tag(image.url, alt: 'Image'), image.url, target: '_blank') %></li>
-  <% end %>
+<div class="list-group">
+	<% if @photos.none? %>
+		<div class="center">No Photos available</div>
+	<% else %>
+		<% @photos.each do |photo| %>
+			<img src="<%= photo.storage_url %>">
+		<%end%>
+	<%end%>
+</div>
 
-</p>
+<div class="center">
+	<% if session[:user_id] != nil %>
+		<% if User.find(session[:user_id]).admin != true %>
+			<%= link_to new_photo_path(:toilet => @toilet.id), class: "btn btn-success btn-sm" do%>
+				<span class="glyphicon glyphicon-plus"></span> Add Photo
+			<%end%>
+		<%end%>
+	<%end%>
+</div>
 
 <br>
 <% if session[:user_id] != nil %>

@@ -20,6 +20,7 @@ class ToiletsController < ApplicationController
   def show
     @toilet = Toilet.new.get_toilet params[:id]
     @feedbacks = Feedback.find_toilet_feedback params[:id]
+    @photos = Photo.find_toilet_photo params[:id]
   end
 
   # GET /toilets/new
@@ -39,18 +40,6 @@ class ToiletsController < ApplicationController
     
     respond_to do |format|
       if @toilet.save
-
-        ##Upload All photos to storage
-        storage = Google::Cloud::Storage.new(
-          project: "my-toiletfinder-project",
-          keyfile: "#{Rails.root}/credential/ToiletFinder-9ede96ffc554.json"
-        )
-        
-        bucket = storage.bucket "toilet-photos"
-    
-        params["toilet"]["image"].each do |image|
-          bucket.create_file image.tempfile.path, Time.now.getutc.to_s
-        end
 
         format.html { redirect_to @toilet, notice: 'Toilet was successfully created.' }
         format.json { render :show, status: :created, location: @toilet }
