@@ -3,119 +3,84 @@
 <!-- <p id="notice"><%= notice %></p> -->
 
 <div class="center">
-
-	<h3>  <%= @toilet.title %> <br>
-		<small><%= @toilet.description %></small> 
-	</h3>
-	<h4>
-		<small><span class="glyphicon glyphicon-map-marker"></span> <%= @toilet.location %><br>
-		<strong>Toilet Rating:</strong>
-		<%= render 'home/overall-rating', :toilet => @toilet %>
-		</small>
-	</h4>
-	<p>
-		<strong>Parentsroom:</strong>
-		<%= @toilet.parentsRoom %>
-		<br>
-		<strong>Gender neutral:</strong>
-		<%= @toilet.gender_neutral %>
-		<br>
-		<strong>Disabled opt:</strong>
-		<%= @toilet.disabled_opt %>
-		<br>
-		<strong>Female:</strong>
-		<%= @toilet.female %>
-		<br>
-		<strong>Male:</strong>
-		<%= @toilet.male %>
-		
-	</p>
+	<%= render 'toilets/description',  :toilet => @toilet, :photos => @photos%>
 </div>
-<hr>
-Comments section
-<hr>
-<div class="list-group">
-	<% if @feedbacks.none? %>
-	<div class="center">No comments available</div>
-	<% else %>
-	<% @feedbacks.each do |feedback| %>
-	<div class="list-group-item">
-		<div class="col-xs-6">
+<div class="col-xs-12">
+	<hr>
+	Comments section
+	<hr>
+	<div class="list-group">
+		<% if @feedbacks.none? %>
+		<div class="center">No comments available</div>
+		<% else %>
+		<% @feedbacks.each do |feedback| %>
+		<div class="list-group-item">
+			<div class="col-xs-6">
 
+			</div>
+			<div class="col-xs-6">
+				Overall: 
+				<%(1..5).each do |i|%>
+				<%if i <= feedback.overall.to_i %>
+				<span class="glyphicon glyphicon-star"></span>
+				<%else%>
+				<span class="glyphicon glyphicon-star-empty"></span>
+				<%end%>
+				<%end%>
+				<br> 
+				Cleanliness: 
+				<%(1..5).each do |i|%>
+				<%if i <= feedback.cleanliness.to_i%>
+				<span class="glyphicon glyphicon-star"></span>
+				<%else%>
+				<span class="glyphicon glyphicon-star-empty"></span>
+				<%end%>
+				<%end%>
+				<br> 
+				Odour: 
+				<%(1..5).each do |i|%>
+				<%if i <= feedback.odour.to_i%>
+				<span class="glyphicon glyphicon-star"></span>
+				<%else%>
+				<span class="glyphicon glyphicon-star-empty"></span>
+				<%end%>
+				<%end%>
+				<br> 
+				Safety: 
+				<%(1..5).each do |i|%>
+				<%if i <= feedback.safety.to_i%>
+				<span class="glyphicon glyphicon-star"></span>
+				<%else%>
+				<span class="glyphicon glyphicon-star-empty"></span>
+				<%end%>
+				<%end%>
+			</div>
+			<%= User.find(feedback.user_id.to_i).name %> commented: <br>
+			<%= feedback.comment%>
 		</div>
-		<div class="col-xs-6">
-			Overall: 
-			<%(1..5).each do |i|%>
-			<%if i <= feedback.overall.to_i %>
-			<span class="glyphicon glyphicon-star"></span>
-			<%else%>
-			<span class="glyphicon glyphicon-star-empty"></span>
-			<%end%>
-			<%end%>
-			<br> 
-			Cleanliness: 
-			<%(1..5).each do |i|%>
-			<%if i <= feedback.cleanliness.to_i%>
-			<span class="glyphicon glyphicon-star"></span>
-			<%else%>
-			<span class="glyphicon glyphicon-star-empty"></span>
-			<%end%>
-			<%end%>
-			<br> 
-			Odour: 
-			<%(1..5).each do |i|%>
-			<%if i <= feedback.odour.to_i%>
-			<span class="glyphicon glyphicon-star"></span>
-			<%else%>
-			<span class="glyphicon glyphicon-star-empty"></span>
-			<%end%>
-			<%end%>
-			<br> 
-			Safety: 
-			<%(1..5).each do |i|%>
-			<%if i <= feedback.safety.to_i%>
-			<span class="glyphicon glyphicon-star"></span>
-			<%else%>
-			<span class="glyphicon glyphicon-star-empty"></span>
-			<%end%>
-			<%end%>
-		</div>
-		<%= User.find(feedback.user_id.to_i).name %> commented: <br>
-		<%= feedback.comment%>
+		<%end%>
+		<%end%>
 	</div>
-	<%end%>
-	<%end%>
-</div>
-<div class="center">
-	<% if session[:user_id] != nil %>
-	<% if User.find(session[:user_id]).admin != true %>
-	<%= link_to feedback_path(:id => @toilet.id), class: "btn btn-success btn-sm" do%>
-	<span class="glyphicon glyphicon-plus"></span> Add Comment
-	<%end%>
-	<%end%>
-	<%end%>
-</div>
-
-<div class="list-group">
-	<% if @photos.none? %>
-		<div class="center">No Photos available</div>
-	<% else %>
-		<% @photos.each do |photo| %>
-			<img src="<%= photo.storage_url %>">
-		<%end%>
-	<%end%>
-</div>
-
-<div class="center">
-	<% if session[:user_id] != nil %>
+	<div class="center">
+		<% if session[:user_id] != nil %>
 		<% if User.find(session[:user_id]).admin != true %>
-			<%= link_to new_photo_path(:toilet => @toilet.id), class: "btn btn-success btn-sm" do%>
-				<span class="glyphicon glyphicon-plus"></span> Add Photo
-			<%end%>
+		<%= link_to feedback_path(:id => @toilet.id), class: "btn btn-success btn-sm" do%>
+		<span class="glyphicon glyphicon-plus"></span> Add Comment
 		<%end%>
-	<%end%>
-</div>
+		<%end%>
+		<%end%>
+	</div>
 
+	<div class="center">
+		<% if session[:user_id] != nil %>
+		<% if User.find(session[:user_id]).admin != true %>
+		<%= link_to new_photo_path(:toilet => @toilet.id), class: "btn btn-success btn-sm" do%>
+		<span class="glyphicon glyphicon-plus"></span> Add Photo
+		<%end%>
+		<%end%>
+		<%end%>
+	</div>
+</div>
 <br>
 <% if session[:user_id] != nil %>
 <% if User.find(session[:user_id]).admin == true %>

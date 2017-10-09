@@ -57,14 +57,14 @@ function initAutocomplete() {
     center: mel_cbd
   });
 
-    var infoWin = new google.maps.InfoWindow();
+  var infoWin = new google.maps.InfoWindow();
   var markers = locations.map(function(location, i) {
-    var marker = new google.maps.Marker({
-      position: location
-    });
-    google.maps.event.addListener(marker, 'click', function(evt) {
-      infoWin.setContent(location.info);
-      infoWin.open(map, marker);
+      var marker = new google.maps.Marker({
+        position: location
+      });
+        google.maps.event.addListener(marker, 'click', function(evt) {
+        infoWin.setContent(location.info);
+        infoWin.open(map, marker);
     })
     return marker;
     // return new google.maps.Marker({
