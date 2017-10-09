@@ -1,4 +1,4 @@
-  <div class=" col-xs-4">
+  <div class=" col-xs-5">
     <% if @photos.none? %>
     <div class="center">No Photos available</div>
     <% else %>
@@ -18,10 +18,16 @@
           <% if index == 0 %> <!-- start if -->
           <div class="item active">
             <img src="<%= photo.storage_url %>" style="width:100%;">
+            <div class="carousel-caption">
+              <h3><%= photo.caption %></h3>
+            </div>
           </div>
           <%else%>
           <div class="item">
             <img src="<%= photo.storage_url %>" style="width:100%;">
+            <div class="carousel-caption">
+              <h3><%= photo.caption %></h3>
+            </div>
           </div>
           <%end%> <!-- end if -->
         <%end%><!--  end loop -->
@@ -41,7 +47,7 @@
   </div>
 
   <!-- Text description -->
-  <div class="col-xs-8">
+  <div class="col-xs-7">
     <h3>  <%= @toilet.title %> <br>
       <small><%= @toilet.description %></small> 
     </h3>
