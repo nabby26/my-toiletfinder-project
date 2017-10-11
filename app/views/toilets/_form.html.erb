@@ -9,6 +9,8 @@
 
     <%= f.label :location %>
     <%= f.text_field :location, class: 'form-control', onFocus: "geolocate()" %>
+    <%= f.hidden_field :lat %>
+    <%= f.hidden_field :lon %>
 
     <%= f.label :description %>
     <%= f.text_field :description, class: 'form-control' %>
@@ -27,9 +29,6 @@
 
     <%= f.label :disabled_opt  , {class: "checkbox inline"}  %>
     <%= f.check_box :disabled_opt, class: 'form-control'%>
-
-    <%= f.label :image %>
-    <%= f.file_field :image, multiple: true %>
 
     <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>

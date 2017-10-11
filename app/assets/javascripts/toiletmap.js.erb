@@ -6,20 +6,30 @@ function initialiseMap() {
 var mel_cbd = {lat:-37.8136, lng: 144.9631};
 var autocomplete;
 
+//TOILET LOCATION AUTOCOMPLETE
 function initToiletAutocomplete() {
-  //TOILET LOCATION AUTOCOMPLETE
-  var defaultBounds = new google.maps.LatLngBounds(
-    new google.maps.LatLng(mel_cbd));
-  
   //Set the bounds on creation of the Autocomplete object  
   var toiletInput = document.getElementById('toilet_location');
   var options = {
-    bounds: defaultBounds,
     types: ['geocode']
   };
   autocomplete = new google.maps.places.Autocomplete(toiletInput, options);
+
+  // When the user selects an address from the dropdown, populate the address
+  // fields in the form.
+  autocomplete.addListener('place_changed', fillInCoordinates);
 }
 
+function fillInCoordinates() {
+  // Get the place details from the autocomplete object.
+  var place = autocomplete.getPlace();
+
+  var lat = place.geometry.location.lat()
+  var lon = place.geometry.location.lng()
+
+  document.getElementById('toilet_lat').value = lat;
+  document.getElementById('toilet_lon').value = lon;
+}
 // Bias the autocomplete object to the user's geographical location,
 // as supplied by the browser's 'navigator.geolocation' object.
 function geolocate() {
