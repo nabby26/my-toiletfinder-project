@@ -1,0 +1,10 @@
+<%= form_tag edit_opening_hour_path do %>
+	<% @weekday.each do |day| %>
+		<h2>Weekday : <%= day.day %></h2>
+		<%= label :open_time %>
+    	<%= text_field :open_time, class: 'form-control' %>
+    	<%= label :close_time %>
+    	<%= text_field :close_time, class: 'form-control' %>
+	<% end %>
+	 <%= submit_tag yield(:button_text), class: "btn btn-primary" %>
+<%end%>

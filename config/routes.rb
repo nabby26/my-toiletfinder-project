@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   	get 	'/feedback', to: 'feedbacks#new'
   	post 	'/feedback', to: 'feedbacks#create'
 
+  	get '/edit_opening_hour', to: 'opening_hours#edit'
+  	post '/edit_opening_hour', to: 'opening_hours#update'
+
 
 	resources :toilets
 	resources :users

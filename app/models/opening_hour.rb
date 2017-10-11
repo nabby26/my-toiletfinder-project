@@ -32,26 +32,30 @@ class OpeningHour < ApplicationRecord
      result = dataset.run query
      openingHour = result.map {|entity| OpeningHour.create_hash entity }
 
-     monday, tuesday, wednesday, thursday, friday, saturday, sunday = nil
+     # monday, tuesday, wednesday, thursday, friday, saturday, sunday = nil
+     @weekday = []
      openingHour.each do |day|
-     	if day.day == "Monday"
-     		monday = day
-     	elsif day.day == "Tuesday"
-     		tuesday = day
-     	elsif day.day == "Wednesday"
-     		wednesday = day
-     	elsif day.day == "Thursday"
-     		thursday = day
-     	elsif day.day == "Friday"
-     		friday = day
-     	elsif day.day == "Saturday"
-     		saturday = day
-     	elsif day.day == "Sunday"
-     		sunday = day
-     	else 
-     	end 	
+     	@weekday << day
+     	# if day.day == "Monday"
+     	# 	monday = day
+     	# elsif day.day == "Tuesday"
+     	# 	tuesday = day
+     	# elsif day.day == "Wednesday"
+     	# 	wednesday = day
+     	# elsif day.day == "Thursday"
+     	# 	thursday = day
+     	# elsif day.day == "Friday"
+     	# 	friday = day
+     	# elsif day.day == "Saturday"
+     	# 	saturday = day
+     	# elsif day.day == "Sunday"
+     	# 	sunday = day
+     	# else 
+     	# end 	
      end 
-     return monday, tuesday, wednesday, thursday, friday, saturday, sunday
+
+     return @weekday
+     # return monday, tuesday, wednesday, thursday, friday, saturday, sunday
    end
     # [END find]
 	# [START to_entity]
@@ -73,8 +77,8 @@ class OpeningHour < ApplicationRecord
   include ActiveModel::Validations
 
   validates :day, presence: true
-  validates :open_time, presence: true
-  validates :close_time, presence: true
+  # validates :open_time, presence: true
+  # validates :close_time, presence: true
   validates :toilet_id, presence: true
 
   # Save the book to Datastore.

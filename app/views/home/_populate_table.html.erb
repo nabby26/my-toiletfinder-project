@@ -7,11 +7,31 @@
 			<h6><span class="glyphicon glyphicon-map-marker"></span><%= toilet.location %></h6>
 		<%end%>
 	</td>
-	<td> <%= toilet.female %></td>
-	<td><%= toilet.male %></td>
-	<td> <% if toilet.gender_neutral? then toilet.gender_neutral else "-" end%></td>
-	<td><%= toilet.parentsRoom %></td>
-	<td><%= toilet.disabled_opt %></td>
+	<%if toilet.female == true %>
+		<td><span class='glyphicon glyphicon-ok'></span></td>
+	<%else%>
+		<td></td>
+	<%end%>
+	<%if toilet.male == true %>
+		<td><span class='glyphicon glyphicon-ok'></span></td>
+		<%else%>
+		<td></td>
+	<%end%>
+	<%if toilet.gender_neutral == true %>
+		<td><span class='glyphicon glyphicon-ok'></span></td>
+		<%else%>
+		<td></td>
+	<%end%>
+	<%if toilet.parentsRoom == true %>
+		<td><span class='glyphicon glyphicon-ok'></span></td>
+		<%else%>
+		<td></td>
+	<%end%>
+	<%if toilet.disabled_opt == true %>
+		<td><span class='glyphicon glyphicon-ok'></span></td>
+		<%else%>
+		<td></td>
+	<%end%>
 	<td>
 		<% toggle_data = "#"+toilet.id.to_s%>
 		<%= link_to 'View more', "#", class: "btn btn-warning btn-sm", 
