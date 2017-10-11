@@ -94,13 +94,13 @@ class ToiletsController < ApplicationController
     end
 
     def set_up_opening_hours toilet
-      @monday = OpeningHour.new(day: "Monday", open_time: nil, close_time: nil, toilet_id: toilet.id)
-      @tuesday = OpeningHour.new(day: "Tuesday", open_time: nil, close_time: nil, toilet_id: toilet.id)
-      @wednesday = OpeningHour.new(day: "Wednesday", open_time: nil, close_time: nil, toilet_id: toilet.id)
-      @thursday = OpeningHour.new(day: "Thursday", open_time: nil, close_time: nil, toilet_id: toilet.id)
-      @friday = OpeningHour.new(day: "Friday", open_time: nil, close_time: nil, toilet_id: toilet.id)
-      @saturday = OpeningHour.new(day: "Saturday", open_time: nil, close_time: nil, toilet_id: toilet.id)
-      @sunday = OpeningHour.new(day: "Sunday", open_time: nil, close_time: nil, toilet_id: toilet.id)
+      @monday = OpeningHour.new(day: "Monday", open_time: nil, close_time: nil, toilet_id: toilet.id.to_s)
+      @tuesday = OpeningHour.new(day: "Tuesday", open_time: nil, close_time: nil, toilet_id: toilet.id.to_s)
+      @wednesday = OpeningHour.new(day: "Wednesday", open_time: nil, close_time: nil, toilet_id: toilet.id.to_s)
+      @thursday = OpeningHour.new(day: "Thursday", open_time: nil, close_time: nil, toilet_id: toilet.id.to_s)
+      @friday = OpeningHour.new(day: "Friday", open_time: nil, close_time: nil, toilet_id: toilet.id.to_s)
+      @saturday = OpeningHour.new(day: "Saturday", open_time: nil, close_time: nil, toilet_id: toilet.id.to_s)
+      @sunday = OpeningHour.new(day: "Sunday", open_time: nil, close_time: nil, toilet_id: toilet.id.to_s)
       
       @monday.save
       @tuesday.save

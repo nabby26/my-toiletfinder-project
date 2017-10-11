@@ -17,7 +17,7 @@ class OpeningHour < ApplicationRecord
       entity.properties.to_hash.each do |name, value|
         openingHour.send "#{name}=", value if openingHour.respond_to? "#{name}="
       end
-      feedback
+      openingHour
       
     end
   # [END from_entity]
@@ -26,11 +26,12 @@ class OpeningHour < ApplicationRecord
     # Lookup Toilet by toilet ID.  Returns Toilet or nil.
     def self.find_opening toilet_id
      query = Google::Cloud::Datastore::Query.new
-     query.kind("Opening_Hour").
-     where("toilet_id", "=", toilet_id.to_s)
+     query.kind("OpeningHour").
+     where("toilet_id", "=", "5200313652871168")
 
      result = dataset.run query
      openingHour = result.map {|entity| OpeningHour.create_hash entity }
+     return openingHour
 
      # monday, tuesday, wednesday, thursday, friday, saturday, sunday = nil
      @weekday = []
@@ -54,7 +55,8 @@ class OpeningHour < ApplicationRecord
      	# end 	
      end 
 
-     return @weekday
+     # @weekday = openingHour
+     # return @weekday
      # return monday, tuesday, wednesday, thursday, friday, saturday, sunday
    end
     # [END find]
