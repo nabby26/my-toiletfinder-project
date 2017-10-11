@@ -90,7 +90,7 @@ class ToiletsController < ApplicationController
       # Make an API call to google maps and verify. If location is not valid then reject the create/update
 
       params.require(:toilet).permit(:title, :location, :description, :parentsRoom, 
-        :gender_neutral, :disabled_opt, :female, :male).merge(public_toilet: false)
+        :gender_neutral, :disabled_opt, :female, :male, :lat, :lon).merge(public_toilet: false)
     end
 
     def set_up_opening_hours toilet

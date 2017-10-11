@@ -1,0 +1,47 @@
+		<% @feedbacks.each do |feedback| %>
+			<div class="list-group-item">
+				<div class="col-xs-6">
+
+				</div>
+
+				<div class="col-xs-6">
+					Overall: 
+					<%(1..5).each do |i|%>
+						<%if i <= feedback.overall.to_i %>
+							<span class="glyphicon glyphicon-star"></span>
+						<%else%>
+							<span class="glyphicon glyphicon-star-empty"></span>
+						<%end%>
+					<%end%>
+					<br> 
+					Cleanliness: 
+					<%(1..5).each do |i|%>
+						<%if i <= feedback.cleanliness.to_i%>
+							<span class="glyphicon glyphicon-star"></span>
+						<%else%>
+							<span class="glyphicon glyphicon-star-empty"></span>
+						<%end%>
+					<%end%>
+					<br> 
+					Odour: 
+					<%(1..5).each do |i|%>
+					<%if i <= feedback.odour.to_i%>
+					<span class="glyphicon glyphicon-star"></span>
+					<%else%>
+					<span class="glyphicon glyphicon-star-empty"></span>
+					<%end%>
+					<%end%>
+					<br> 
+					Safety: 
+					<%(1..5).each do |i|%>
+					<%if i <= feedback.safety.to_i%>
+					<span class="glyphicon glyphicon-star"></span>
+					<%else%>
+					<span class="glyphicon glyphicon-star-empty"></span>
+					<%end%>
+					<%end%>
+				</div>
+				<%= User.find(feedback.user_id.to_i).name %> commented: <br>
+				<%= feedback.comment%>
+			</div>
+		<%end%>
