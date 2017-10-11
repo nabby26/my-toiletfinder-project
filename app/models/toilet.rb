@@ -80,7 +80,7 @@ class Toilet < ApplicationRecord
     include ActiveModel::Model
 
     validates :title,  presence: true, length: { maximum: 50 }
-    validates :location,  presence: true, length: { maximum: 50 }
+    validates :location,  presence: true, length: { maximum: 150 }
     validates :description, length: { maximum: 100 }
 
     # [START save]
