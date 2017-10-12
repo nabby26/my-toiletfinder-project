@@ -33,6 +33,7 @@ function initMap() {
 }
 
  <% toilets = Toilet.new.get_public_toilets %>
+ <% admin_toilets = Toilet.query %>
   var locations = [
             <% toilets.each do |toilet| %>
             <%
