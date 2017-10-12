@@ -33,6 +33,7 @@ function initMap() {
 }
 
  <% toilets = Toilet.new.get_public_toilets %>
+ <% admin_toilets = Toilet.all %>
   var locations = [
   					<% toilets.each do |toilet| %>
             <%
@@ -49,6 +50,21 @@ function initMap() {
               info: "<%=content %>"
             }, 
  					<% end %>
+          <% admin_toilets.each do |toilet| %>
+            <%
+              title = toilet.title.gsub(/"/,"'")
+              content = "<h5> #{title} <br><small>"+
+                        "<strong>Parentsroom:</strong> #{toilet.parentsRoom}"+
+                        "<br><strong>Female:</strong> #{toilet.female}"+
+                        "<br><strong>Male:</strong> #{toilet.male}"+
+                        "<br><strong>Disabled opt:</strong> #{toilet.disabled_opt}</small></h5>"
+            %>
+            {  
+              lat:  <%= toilet.lat %>, 
+              lng:  <%= toilet.lon %>, 
+              info: "<%=content %>"
+            }, 
+          <% end %>
  					]; 
 
 function initAutocomplete() {
