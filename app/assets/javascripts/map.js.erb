@@ -32,10 +32,11 @@ function initMap() {
       {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 }
 
- <% toilets = Toilet.new.get_public_toilets %>
- <% admin_toilets = Toilet.all %>
+
+<% toilets = Toilet.new.get_public_toilets %>
+<% admin_toilets = Toilet.all %>
   var locations = [
-  					<% toilets.each do |toilet| %>
+            <% toilets.each do |toilet| %>
             <%
               title = toilet.title.gsub(/"/,"'")
               content = "<h5> #{title} <br><small>"+
@@ -44,12 +45,12 @@ function initMap() {
                         "<br><strong>Male:</strong> #{toilet.male}"+
                         "<br><strong>Disabled opt:</strong> #{toilet.disabled_opt}</small></h5>"
             %>
-  					{  
+            {  
               lat:  <%= toilet.lat %>, 
               lng:  <%= toilet.lon %>, 
               info: "<%=content %>"
             }, 
- 					<% end %>
+          <% end %>
           <% admin_toilets.each do |toilet| %>
             <%
               title = toilet.title.gsub(/"/,"'")
@@ -65,8 +66,7 @@ function initMap() {
               info: "<%=content %>"
             }, 
           <% end %>
- 					]; 
-
+          ]; 
 function initAutocomplete() {
     var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 14,
