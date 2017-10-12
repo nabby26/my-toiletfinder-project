@@ -41,9 +41,6 @@ class User < ApplicationRecord
     result = dataset.run query
     from_entity result.first if result.any?
   end
-
-  def authenticate password
-  end 
   
   # Add Active Model validation support to User class.
   include ActiveModel::Validations
@@ -59,52 +56,8 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
-  #Admin login validation 
-  # validates :email, 
-  #   format: {with: /\b(admin)\b/},
-  #   uniqueness: true,
-  #   :if => Proc.new {|c| c.admin == true}
-
-  #  validates :email, presence: true, length: { maximum: 255 },
-  #                   format: { with: VALID_EMAIL_REGEX },
-  #                   uniqueness: { case_sensitive: false }, 
-  #                   :unless => Proc.new {|c| c.admin == true}
-  #-------------------------------------------------
-
-  #Checking password
-  #has_secure_password
-
-  # validates :password, 
-  #   format: {with: /\b(password)\b/},
-  #   :if => Proc.new {|c| c.admin == true}
-
-  # validates :password, presence: true, length: { minimum: 6 }, allow_nil: true,
-  #   :unless => Proc.new {|c| c.admin == true}
-  #-------------------------------------------------
 
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-  # VALID_PASSWORD_REGEX = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,}/
-
-   # Returns the hash digest of the given string.
-  # def User.digest(string)
-  #   cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-  #                                                 BCrypt::Engine.cost
-  #   BCrypt::Password.create(string, cost: cost)
-  # end
-  
-  # Save the book to Datastore.
-  # @return true if valid and saved successfully, otherwise false.
-  def save
-    if valid?
-      entity = to_entity
-      User.dataset.save entity
-      self.id = entity.key.id
-      true
-    else
-      false
-    end
-  end
-
   # [START to_entity]
   # ...
   def to_entity
@@ -118,6 +71,19 @@ class User < ApplicationRecord
   end
   # [END to_entity]
 
+  
+  # Save the book to Datastore.
+  # @return true if valid and saved successfully, otherwise false.
+  def save
+    if valid?
+      entity = to_entity
+      User.dataset.save entity
+      self.id = entity.key.id
+      true
+    else
+      false
+    end
+  end
 
   # Set attribute values from provided Hash and save to Datastore.
   def update attributes

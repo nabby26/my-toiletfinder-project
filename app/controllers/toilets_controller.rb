@@ -68,9 +68,11 @@ class ToiletsController < ApplicationController
   # DELETE /toilets/1
   # DELETE /toilets/1.json
   def destroy
-    # Need to destroy all feedback associated
-    # destroy all photos
-    # destroy opening times
+
+    # @feedbacks = Feedback.find_toilet_feedback @toilet.id
+    # @feedbacks.each do |feedback|
+    #   feedback.destroy feedback
+    # end 
     @toilet.destroy
     respond_to do |format|
       format.html { redirect_to toilets_url, notice: 'Toilet was successfully destroyed.' }

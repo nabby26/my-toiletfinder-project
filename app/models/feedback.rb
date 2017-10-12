@@ -22,16 +22,7 @@ class Feedback < ApplicationRecord
 	  end
   # [END from_entity]
 
-    # Lookup Feedback by ID.  Returns Feedback or nil.
-    def self.find id
-    	query    = Google::Cloud::Datastore::Key.new "Feedback", id.to_i
-    	entities = dataset.lookup query
-
-    	from_entity entities.first if entities.any?
-    end
-
-
-    # [START from_entity]
+  # [START from_entity]
     def self.create_hash entity
       feedback = Feedback.new
       # feedback.id = feedback.key.id
@@ -42,6 +33,15 @@ class Feedback < ApplicationRecord
       
     end
   # [END from_entity]
+
+
+    # Lookup Feedback by ID.  Returns Feedback or nil.
+    def self.find id
+    	query    = Google::Cloud::Datastore::Key.new "Feedback", id.to_i
+    	entities = dataset.lookup query
+
+    	from_entity entities.first if entities.any?
+    end
 
     # [START find]
     # Lookup Toilet by toilet ID.  Returns Toilet or nil.
@@ -100,8 +100,6 @@ class Feedback < ApplicationRecord
 
   include ActiveModel::Validations
 
-  VALID_RATING_REGEX = "/[12345]/"
-
   validates :comment,  presence: true
   validates :toilet_id, presence: true
   validates :user_id, presence: true
@@ -123,6 +121,10 @@ class Feedback < ApplicationRecord
   	else
   		false
   	end
+  end
+
+  def destroy feedback
+    Feedback.dataset.delete Google::Cloud::Datastore::Key.new "Feedback", feedback.id.to_i
   end
 
 end
