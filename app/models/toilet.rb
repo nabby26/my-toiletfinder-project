@@ -44,15 +44,15 @@ class Toilet < ApplicationRecord
     end
     # [END query]
 
-    # def self.all
-    #     query = Google::Cloud::Datastore::Query.new
-    #     query.kind "Toilet"
+    def self.all
+        query = Google::Cloud::Datastore::Query.new
+        query.kind "Toilet"
 
-    #     results = dataset.run query
-    #     toilets   = results.map {|entity| Toilet.from_entity entity }
+        results = dataset.run query
+        toilets   = results.map {|entity| Toilet.from_entity entity }
 
-    #     return toilets
-    # end 
+        return toilets
+    end 
 
     # [START from_entity]
     def self.from_entity entity
