@@ -10,7 +10,7 @@ class OpeningHour < ApplicationRecord
 			)
 	end
 
-	    # [START from_entity]
+	# [START from_entity]
     def self.create_hash entity
       openingHour = OpeningHour.new
       # feedback.id = feedback.key.id
@@ -24,42 +24,28 @@ class OpeningHour < ApplicationRecord
 
     # [START find]
     # Lookup Toilet by toilet ID.  Returns Toilet or nil.
-    def self.find_opening toilet_id
+    def self.find_opening id
      query = Google::Cloud::Datastore::Query.new
      query.kind("OpeningHour").
-     where("toilet_id", "=", "5200313652871168")
+     where("toilet_id", "=", id.to_s)
 
      result = dataset.run query
      openingHour = result.map {|entity| OpeningHour.create_hash entity }
      return openingHour
-
-     # monday, tuesday, wednesday, thursday, friday, saturday, sunday = nil
-     @weekday = []
-     openingHour.each do |day|
-     	@weekday << day
-     	# if day.day == "Monday"
-     	# 	monday = day
-     	# elsif day.day == "Tuesday"
-     	# 	tuesday = day
-     	# elsif day.day == "Wednesday"
-     	# 	wednesday = day
-     	# elsif day.day == "Thursday"
-     	# 	thursday = day
-     	# elsif day.day == "Friday"
-     	# 	friday = day
-     	# elsif day.day == "Saturday"
-     	# 	saturday = day
-     	# elsif day.day == "Sunday"
-     	# 	sunday = day
-     	# else 
-     	# end 	
-     end 
-
-     # @weekday = openingHour
-     # return @weekday
-     # return monday, tuesday, wednesday, thursday, friday, saturday, sunday
    end
     # [END find]
+
+
+    def self.find_day options = {}
+    	query = Google::Cloud::Datastore::Query.new
+     	query.kind("OpeningHour").
+     	where("toilet_id", "=", options[:toilet_id].to_s).
+     	where("day", "=", options[:weekday].to_s)
+
+     	result = dataset.run query
+     	create_hash result.first if result.any?
+
+    end 
 	# [START to_entity]
   # ...
   def to_entity
@@ -82,6 +68,16 @@ class OpeningHour < ApplicationRecord
   # validates :open_time, presence: true
   # validates :close_time, presence: true
   validates :toilet_id, presence: true
+
+    # [START update]
+    # Set attribute values from provided Hash and save to Datastore.
+    def update attributes
+        attributes.each do |name, value|
+            send "#{name}=", value if respond_to? "#{name}="
+        end
+        save
+    end
+    # [END update]
 
   # Save the book to Datastore.
   # @return true if valid and saved successfully, otherwise false.

@@ -2,11 +2,12 @@
   <% @weekday.each do |day| %>
     <%= fields_for 'weekday[]', day do |f| %>
 		<h2>Weekday : <%= day.day %></h2>
+		<%= f.hidden_field :day, :value => day.day %>
+		<%= f.hidden_field :toilet_id, :value => day.toilet_id %>
 		<%= f.label :open_time %>
-    	<%= f.text_field :open_time, class: 'form-control' %>
+		<%= f.number_field(:open_time, in: 1..24, step: 1) %>
     	<%= f.label :close_time %>
-    	<%= f.text_field :close_time, class: 'form-control' %>
-
+    	<%= f.number_field(:close_time, in: 1..24, step: 1) %>
     <% end %>
   <% end %>
   <%= submit_tag yield(:button_text), class: "btn btn-primary" %>

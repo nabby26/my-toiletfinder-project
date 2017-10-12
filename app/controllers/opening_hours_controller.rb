@@ -3,54 +3,31 @@ class OpeningHoursController < ApplicationController
   end
 
   def edit
-  	@weekday = OpeningHour.find_opening(params[:id])
+  	@weekday = OpeningHour.find_opening(params[:toilet])
   end 
 
   def update
-  	@monday 	= Openinghours.find_day params[:id], "Monday"
-  	@tuesday 	= Openinghours.find_day params[:id], "Tuesday"
-  	@wednesday 	= Openinghours.find_day params[:id], "Wednesday"
-  	@thursday 	= Openinghours.find_day params[:id], "Thursday"
-  	@friday 	= Openinghours.find_day params[:id], "Friday"
-  	@saturday 	= Openinghours.find_day params[:id], "Saturday"
-  	@sunday 	= Openinghours.find_day params[:id], "Sunday"
-
-  	weekdays = [@monday, @tueday, @wednesday, @thursday, @friday, @saturday, @sunday]
   	message = ""
-  	weekdays.each do |day|
-  		if day.save
-  			message += "#{day} updated <br>"
-  		else 
-  			render 'edit'
-  			# render :action => "new", :toilet => @toilet, :feedback => Feedback.new
-  		end
-  	end 
+  	params["weekday"].each do |day|
+	    if day["open_time"] != "" || day["open_time"] != ""
+	    	@weekday = OpeningHour.find_day(toilet_id: day[:toilet_id], weekday: day[:day])
+	    	if @weekday.update(weekday_params(day))
+	    		message += "#{day[:day]} updated, "
+	    	else 
+  				render 'edit'
+	    	end 
+	    end
+  	end
 
   	flash[:success] = message
-  	redirect_to toilet_url
+  	redirect_to root_url
   end 
 
   def destroy
   end 
 
   private 
-  	def monday_params 
-  		params.require(:openingHours).permit(:comment, :cleanliness)
+  	def weekday_params params 
+  		params.permit(:open_time, :close_time)
   	end 
-  	def tuesday_params 
-  	end 
-  	def wednesday_params 
-  	end 
-  	def thursday_params 
-  	end 
-  	def friday_params 
-  	end 
-  	def saturday_params 
-  	end 
-  	def sunday_params 
-  	end 
-
-
-
-
 end
