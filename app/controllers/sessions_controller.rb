@@ -7,7 +7,11 @@ class SessionsController < ApplicationController
 
     if @user && @user.password == params[:session][:password]
       log_in @user
-      redirect_to toilets_url
+      if @user.admin == true
+        redirect_to toilets_url
+      else
+         redirect_to root_url
+      end
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new'

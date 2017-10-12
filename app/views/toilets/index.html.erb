@@ -1,4 +1,5 @@
 <% if session[:user_id] != nil %>
+  <% if User.find(session[:user_id]).admin == true %>
   <p id="notice"><%= notice %></p>
 
   <h1>Toilets</h1>
@@ -61,7 +62,9 @@
   <%= link_to new_toilet_path, class: "btn btn-success" do%>
   <span class="glyphicon glyphicon-plus"></span> Create New Toilet
   <%end%>
-
+<%else%>
+  <h3 class="center">Page not available</h3>
+<%end%>
 <%else%>
   <h3 class="center">Page not available</h3>
 <%end%>
