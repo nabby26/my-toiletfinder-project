@@ -32,9 +32,8 @@ function initMap() {
       {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 }
 
-
-<% toilets = Toilet.new.get_public_toilets %>
-<% admin_toilets = Toilet.all %>
+ <% toilets = Toilet.new.get_public_toilets %>
+ <% admin_toilets = Toilet.all %>
   var locations = [
             <% toilets.each do |toilet| %>
             <%
@@ -67,6 +66,7 @@ function initMap() {
             }, 
           <% end %>
           ]; 
+
 function initAutocomplete() {
     var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 14,
@@ -83,9 +83,6 @@ function initAutocomplete() {
         infoWin.open(map, marker);
     })
     return marker;
-    // return new google.maps.Marker({
-    //   position: location
-    // });
   }); 
 
   // Add a marker clusterer to manage the markers.
