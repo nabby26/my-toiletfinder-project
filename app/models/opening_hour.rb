@@ -35,6 +35,42 @@ class OpeningHour < ApplicationRecord
    end
     # [END find]
 
+    def self.get_openings id
+     query = Google::Cloud::Datastore::Query.new
+     query.kind("OpeningHour").
+     where("toilet_id", "=", id.to_s)
+     @monday = nil
+     @tuesday = nil
+     @wednesday = nil
+     @thursday = nil
+     @friday = nil
+     @saturday = nil
+     @sunday = nil
+
+     result = dataset.run query
+     openingHour = result.map {|entity| OpeningHour.create_hash entity }
+
+     openingHour.each do |day|
+      if day.day == "Monday"
+        @monday = day
+      elsif day.day == "Tuesday"
+        @tuesday = day
+      elsif day.day == "Wednesday"
+        @wednesday = day
+      elsif day.day == "Thursday"
+        @thursday = day
+      elsif day.day == "Friday"
+        @friday = day
+      elsif day.day == "Saturday"
+        @saturday = day
+      elsif day.day == "Sunday"
+        @sunday = day
+      else 
+        return
+      end
+     end 
+     return @monday, @tuesday, @wednesday, @thursday, @friday, @saturday, @sunday
+   end
 
     def self.find_day options = {}
     	query = Google::Cloud::Datastore::Query.new

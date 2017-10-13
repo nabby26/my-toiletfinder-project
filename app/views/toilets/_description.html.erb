@@ -53,6 +53,43 @@
     </h3>
     <h4>
       <small><span class="glyphicon glyphicon-map-marker"></span> <%= @toilet.location %><br>
+        Opening hours: 
+              <% monday, tuesday, wednesday, thursday, friday, saturday, sunday = OpeningHour.get_openings(toilet.id) %>
+              <% if monday != nil%> 
+              <% if monday.open_time != nil%> 
+                <%= monday.day %>:  <%=monday.open_time%> - <%=monday.close_time%> <br>
+              <%end%>
+              <%end%>
+              <% if tuesday != nil %> 
+              <% if tuesday.open_time != nil %>
+                <%= tuesday.day %>:  <%=tuesday.open_time%> - <%=tuesday.close_time%> <br>
+              <%end%>
+              <%end%>
+              <% if wednesday != nil %> 
+              <% if wednesday.open_time != nil %>
+                <%= wednesday.day %>:  <%=wednesday.open_time%> - <%=wednesday.close_time%> <br>
+              <%end%>
+              <%end%>
+              <% if thursday != nil %>
+              <% if thursday.open_time != nil %> 
+                <%= thursday.day %>:  <%=thursday.open_time%> - <%=thursday.close_time%> <br>
+              <%end%>
+              <%end%>
+              <% if friday != nil %> 
+              <% if friday.open_time != nil %>
+                <%= friday.day %>:  <%=friday.open_time%> - <%=friday.close_time%> <br>
+              <%end%>
+              <%end%>
+              <% if saturday != nil %> 
+              <% if saturday.open_time != nil %> 
+                <%= saturday.day %>:  <%=saturday.open_time%> - <%=saturday.close_time%> <br>
+              <%end%>
+              <%end%>
+              <% if sunday != nil %> 
+              <% if sunday.open_time != nil %> 
+                <%= sunday.day %>:  <%=sunday.open_time%> - <%=sunday.close_time%> <br>
+              <%end%>
+              <%end%>
         <strong>Toilet Rating:</strong>
         <%= render 'home/overall-rating', :toilet => @toilet %>
       </small>
