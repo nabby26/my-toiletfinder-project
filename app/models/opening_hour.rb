@@ -13,7 +13,7 @@ class OpeningHour < ApplicationRecord
 	# [START from_entity]
     def self.create_hash entity
       openingHour = OpeningHour.new
-      # feedback.id = feedback.key.id
+      openingHour.id = entity.key.id
       entity.properties.to_hash.each do |name, value|
         openingHour.send "#{name}=", value if openingHour.respond_to? "#{name}="
       end

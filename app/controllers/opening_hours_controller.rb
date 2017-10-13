@@ -9,10 +9,10 @@ class OpeningHoursController < ApplicationController
   def update
   	message = ""
   	params["weekday"].each do |day|
-	    if day["open_time"] != "" || day["open_time"] != ""
-	    	@weekday = OpeningHour.find_day(toilet_id: day[:toilet_id], weekday: day[:day])
-	    	if @weekday.update(weekday_params(day))
-	    		message += "#{day[:day]} updated, "
+	    if params["weekday"][day]["open_time"] != "" || params["weekday"][day]["open_time"] != ""
+	    	@weekday = OpeningHour.find_day(toilet_id: params["weekday"][day][:toilet_id], weekday: params["weekday"][day][:day])
+	    	if @weekday.update(weekday_params(params["weekday"][day]))
+	    		message += "#{params["weekday"][day][:day]} updated, "
 	    	else 
   				render 'edit'
 	    	end 
